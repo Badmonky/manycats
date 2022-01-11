@@ -84,7 +84,7 @@ fieldset {
 }
 
 .section-space-padding {
-    padding: 0px 0px 150px;
+    padding: 0px 0px 80px;
 }
 
 .section-title {
@@ -424,17 +424,17 @@ fieldset {
 /* Footer */
 
 .footer-section {
-    margin-top: -240px;
+    /* margin-top: -240px; */
     background-color: #000000;
 }
 
 .footer-section .column-one {
-	padding: 90px 0px;
+	padding: 50px 0px;
 }
 
 .footer-section p {
     font-size: 14px;
-    margin-top: 40px;
+    margin-top: 25px;
 }
 
 
