@@ -919,10 +919,15 @@ fieldset {
 
 
 /* fix for IE */
-object {
-    width: 100%;
-    margin-top: 60px;
+.hero-image {
+    padding-top: 60px;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    background-image: url(images/writer.png);
 }
+
+
 
 
 #faq {
