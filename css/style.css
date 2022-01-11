@@ -16,12 +16,12 @@ body {
 }
 
 ::selection {
-    background-color: #72e5ff;
+    background-color: #ffffff;
     color: #ffffff;
 }
 
 ::-moz-selection {
-    background-color: #72e5ff;
+    background-color: #ffffff;
     color: #ffffff;
 }
 
@@ -113,7 +113,7 @@ fieldset {
     text-align: center;
     border-radius: 50%;
     margin: 0 auto 50px;
-    background-color: #72e5ff;
+    background-color: #ffffff;
     color: #ffffff;
     box-shadow: 7px 24px 84px 0 rgba(0, 0, 0, 0.38);
 }
@@ -478,7 +478,7 @@ fieldset {
     }
     
 	.navigation-background .navbar-toggle .icon-bar {
-        background: #72e5ff;
+        background: #ffffff;
     }
     
 	.navbar-toggle {
