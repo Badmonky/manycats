@@ -1,29 +1,43 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ScrollService } from 'src/app/services/scroll.service';
 
 @Component({
   selector: 'app-landingpage',
   templateUrl: './landingpage.component.html',
   styleUrls: ['./landingpage.component.scss']
 })
-export class LandingpageComponent implements OnInit {
+export class LandingpageComponent implements OnInit, OnDestroy {
+  @ViewChild("home", {static: true}) home: ElementRef<any>;
+  @ViewChild("about", {static: true}) about: ElementRef<any>
 
-  isDark: boolean = false;
+  subs: Subscription[] = [];
 
-  constructor() { }
+  elementMap: any = {};
 
-  ngOnInit(): void { }
+  constructor(
+    private scrollService: ScrollService
+  ) {}
 
-  @HostListener('window:scroll', ['$event']) 
-  onScroll(event: any) {
-    if(window.pageYOffset > 50) {
-      this.isDark = true;
-      return;
+  ngOnInit(): void {
+    this.elementMap = {
+      home: this.home.nativeElement,
+      about: this.about.nativeElement
     }
 
-    this.isDark = false;
+    this.subs.push(
+      this.scrollService.onScroll$.subscribe(key => {
+        const el: HTMLElement = this.elementMap[key];
+        if(el) {
+          el.scrollIntoView()
+        }
+      })
+    );
   }
 
-  scrollTo(el: HTMLElement) {
-    el.scrollIntoView();
+  ngOnDestroy(): void {
+    this.subs.forEach(s => {
+      s.unsubscribe()
+    });
   }
 }
