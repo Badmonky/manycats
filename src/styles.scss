@@ -515,6 +515,13 @@ fieldset {
 
 
 @media only screen and (max-width: 767px) {
+    .header-section {
+        margin-top: 80px;
+        h1 {
+            font-size: 40px;
+        }
+    }
+
     .navbar-toggle .icon-bar {
         background: #000000;
     }
