@@ -1,7 +1,11 @@
-<app-nav></app-nav>
+<div class="container-liquid">
+    <app-nav (getHeight)="setNavHeight($event)"></app-nav>
+</div>
 
-<div class="container-liquid" style="margin-top: 150px;">
+<div class="container-liquid" [style.marginTop.px]="navHeight">
     <router-outlet></router-outlet>
 </div>
 
-<app-footer></app-footer>
+<div class="container-liquid" style="margin-top: 50px">
+    <app-footer></app-footer>
+</div>

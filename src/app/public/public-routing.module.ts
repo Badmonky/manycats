@@ -19,7 +19,7 @@ const routes: Routes = [
     component: NftDropComponent
   },
   {
-    path: 'play',
+    path: 'scribble',
     component: PlaygroundComponent
   }
 ];

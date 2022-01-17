@@ -1,4 +1,4 @@
-<div class="header-top-area" [ngClass]="{'bg-dark': isDark, 'bg-light': !isDark}">
+<div #header class="header-top-area" [ngClass]="{'bg-dark': isDark, 'bg-light': !isDark}">
     <nav class="navbar navbar-expand-lg navbar-light" [ngClass]="{'bg-dark m-1': isDark, 'bg-light m-4': !isDark}">
         <div class="container">
             <div class="logo">
@@ -13,24 +13,26 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="javascript:void(0)"
-                            (click)="scrollTo('home'); navigate('home', true)">Home <i class="mdi mdi-circle-small"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" (click)="scrollTo('about'); navigate('home', true, false)">What it is? <i
-                                class="mdi mdi-circle-small"></i></a>
+                        <a class="nav-link" href="javascript:void(0)" (click)="navigate('home', true, false)">What it
+                            is? <i class="mdi mdi-circle-small"></i></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="javascript:void(0)" (click)="navigate('nft', true)">NFT-Drop <i
                                 class="mdi mdi-circle-small"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" (click)="navigate('play', true)">Playground <i
+                        <a class="nav-link" href="javascript:void(0)" (click)="navigate('scribble', true)">Scribble <i
                                 class="mdi mdi-circle-small"></i></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link discord" href="https://discord.com/invite/Rh4U4uuTmW" target="_blank">
-                            <i class="mdi mdi-discord"></i>
+                            <i class="mdi mdi-discord"></i>&nbsp;&nbsp;<i class="mdi mdi-circle-small"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link discord" href="javascript:void(0)" (click)="handleConnect()">
+                            <i *ngIf="!isConnected" class="mdi mdi-wallet-plus"></i>
+                            <i *ngIf="isConnected" class="mdi mdi-wallet color-red"></i>
                         </a>
                     </li>
                 </ul>

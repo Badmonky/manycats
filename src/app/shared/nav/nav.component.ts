@@ -1,22 +1,44 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ScrollService } from 'src/app/services/scroll.service';
+import { WalletService } from 'src/app/services/wallet.service';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit {
+export class NavComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild("header", {static: true}) header: ElementRef;
+  @Output() getHeight: EventEmitter<number> = new EventEmitter();
 
   isDark: boolean = false;
+  isConnected: boolean = false;
+
+  subs: Subscription[] = [];
 
   constructor(
     private router: Router,
-    private scrollService: ScrollService
+    private wallet: WalletService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.subs.push(
+      this.wallet.onConnect$.subscribe(isConnected => {
+        this.isConnected = isConnected;
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach(s => s.unsubscribe());
+  }
+
+  ngAfterViewInit() {
+    const height = this.header?.nativeElement?.offsetHeight || 0;
+    this.getHeight.emit(height);
+  }
 
   @HostListener('window:scroll', ['$event']) 
   onScroll(event: any) {
@@ -26,10 +48,6 @@ export class NavComponent implements OnInit {
     }
 
     this.isDark = false;
-  }
-
-  scrollTo(link: string) {
-    this.scrollService.scrollTo(link);
   }
 
   navigate(path: string, pub=false, scroll=true) {
@@ -42,5 +60,14 @@ export class NavComponent implements OnInit {
     }
     
     this.router.navigate([`${pub ? ('/p') : ''}/${path}`]);
+  }
+
+  handleConnect() {
+    if(this.isConnected) {
+      this.wallet.disconnect();
+      return;
+    }
+
+    this.wallet.connect();
   }
 }
