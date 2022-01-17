@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ScrollService } from 'src/app/services/scroll.service';
 
@@ -7,37 +7,35 @@ import { ScrollService } from 'src/app/services/scroll.service';
   templateUrl: './landingpage.component.html',
   styleUrls: ['./landingpage.component.scss']
 })
-export class LandingpageComponent implements OnInit, OnDestroy {
-  @ViewChild("home", {static: true}) home: ElementRef<any>;
+export class LandingpageComponent implements OnInit, OnDestroy, AfterContentInit {
   @ViewChild("about", {static: true}) about: ElementRef<any>
 
   subs: Subscription[] = [];
-
-  elementMap: any = {};
 
   constructor(
     private scrollService: ScrollService
   ) {}
 
   ngOnInit(): void {
-    this.elementMap = {
-      home: this.home.nativeElement,
-      about: this.about.nativeElement
-    }
-
-    this.subs.push(
-      this.scrollService.onScroll$.subscribe(key => {
-        const el: HTMLElement = this.elementMap[key];
-        if(el) {
-          el.scrollIntoView()
-        }
-      })
-    );
   }
 
   ngOnDestroy(): void {
     this.subs.forEach(s => {
       s.unsubscribe()
     });
+  }
+
+  ngAfterContentInit(): void {
+    setTimeout(() => {
+      this.subs.push(
+        this.scrollService.onScroll$.subscribe(key => {
+          switch(key) {
+            case "about":
+              this.about.nativeElement.scrollIntoView();
+              return;
+          }
+        })
+      );
+    }, 200);
   }
 }
