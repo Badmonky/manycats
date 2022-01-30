@@ -2,7 +2,7 @@
     <app-nav (getHeight)="setNavHeight($event)"></app-nav>
 </div>
 
-<div class="container-liquid" [style.marginTop.px]="navHeight">
+<div class="container-liquid" [style]="'min-height: calc(100% - 171px - '+navHeight+'px - 50px); margin-top:'+navHeight+'px'">
     <router-outlet></router-outlet>
 </div>
 

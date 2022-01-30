@@ -1,1 +1,99 @@
-<p>playground works!</p>
+<div class="container" *ngIf="isConnected">
+    <div class="row">
+        <div class="col-12 text-center mx-auto">
+            <div class="mt-6 mb-5">
+                <h6 class="font-weight-bold">This is our scribblebox</h6>
+                <p class="mb-0">Here you may <a href="https://discord.com/channels/929589950461145148/933147206016454656" target="_blank" class="btn btn-primary btn-sm">vote</a> and
+                    scribble off-chain to get a feeling of collaborative writing.
+                    Read the story and tell us your vision of <a (click)="scrollDown()" href="javascript:void(0)"
+                        class="btn btn-primary btn-sm" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasAfter" aria-controls="offcanvasAfter">what happens next.</a>
+                    At timewriter we always write in two directions. Tell us
+                    <a href="javascript:void(0)" class="btn btn-primary btn-sm" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasBefore" aria-controls="offcanvasBefore">what happened
+                        before</a> and give the story a new beginning. At least for a day!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <ng-container *ngIf="!isConnected">
+                <div class="text-center please-connect" style="margin-top: 20vh; line-height: 25pt;">
+                    Please connect to<br /><a class="color-red" href="javascript:void(0);"
+                        (click)="connect()">MetaMask</a>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="isConnected">
+                <div class="offcanvas offcanvas-start" style="width: 700px;" tabindex="-1" id="offcanvasBefore"
+                    aria-labelledby="offcanvasBeforeLabel">
+                    <div class="offcanvas-header">
+                        <h5 id="offcanvasBeforeLabel">The day <b>before</b></h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <app-submit [title]="'How would you precede?'"></app-submit>
+                        <div class="row" *ngFor="let story of storiesBefore">
+                            <div class="col-12 mb-4">
+                                <div class="card shadow-sm bw-md border-primary text-primary">
+                                    <div class="card-body">
+                                        <div class="post-meta float-right"><a class="text-primary"
+                                                href="javascript:void(0)"><i class="far fa-thumbs-up"></i>Submitted
+                                                by: {{story.address}}</a></div>
+                                        <h5 class="card-title text-primary">DAY {{story.day}}</h5>
+                                        <p class="card-text">{{story.text}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="offcanvas offcanvas-end" style="width: 700px;" tabindex="-1" id="offcanvasAfter"
+                    aria-labelledby="offcanvasAfterLabel">
+                    <div class="offcanvas-header">
+                        <h5 id="offcanvasAfterLabel">The day <b>after</b></h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body" #canvasAfter>
+                        <div class="row" *ngFor="let story of storiesAfter">
+                            <div class="col-12 mb-4">
+                                <div class="card shadow-sm bw-md border-primary text-primary">
+                                    <div class="card-body">
+                                        <div class="post-meta float-right"><a class="text-primary"
+                                                href="javascript:void(0)"><i class="far fa-thumbs-up"></i>Submitted
+                                                by: {{story.address}}</a></div>
+                                        <h5 class="card-title text-primary">DAY {{story.day}}</h5>
+                                        <p class="card-text">{{story.text}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-submit [title]="'How would you continue?'"></app-submit>
+                    </div>
+                </div>
+
+                <div class="row" *ngFor="let story of stories">
+                    <!-- Timeline item 1 content-->
+                    <div class="col-12 mb-4">
+                        <div class="card shadow-sm bw-md border-primary text-primary">
+                            <div class="card-body">
+                                <div class="post-meta float-right"><a class="text-primary" href="javascript:void(0)"><i
+                                            class="far fa-thumbs-up"></i>Submitted
+                                        by: {{story.address}}</a></div>
+                                <h5 class="card-title text-primary">DAY {{story.day}}</h5>
+                                <p class="card-text">{{story.text}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

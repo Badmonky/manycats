@@ -1,4 +1,5 @@
 <div #header class="header-top-area" [ngClass]="{'bg-dark': isDark, 'bg-light': !isDark}">
+    <div *ngIf="isConnected" class="wallet-string"><span>Wallet: </span><span class="color-red">{{account}}</span></div>
     <nav class="navbar navbar-expand-lg navbar-light" [ngClass]="{'bg-dark m-1': isDark, 'bg-light m-4': !isDark}">
         <div class="container">
             <div class="logo">

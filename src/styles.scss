@@ -52,10 +52,17 @@ img {
 
 a {
     color: #fd2034;
+    &.btn-primary {
+        color: #fff;
+    }
 }
 
-.color-red {
-    color: #fd2034;
+.color-red, .text-primary {
+    color: #fd2034 !important;
+}
+
+.border-primary {
+    border-color: #fd2034 !important;
 }
 
 a:hover,
@@ -152,13 +159,18 @@ fieldset {
 
 .btn {
 	color: #ffffff;
-	padding: 0px;
-	font-size: 25px;
-	width: 50px;
-    height: 50px;
+	/*width: 50px;
+    height: 50px;*/
     background: #fd2034;
-    line-height: 50px;
-    border-radius: 100%;
+    //border-radius: 100%;
+}
+
+.btn-primary {
+    border-color: #000000;
+    &:hover, &:focus {
+        background-color: #000000;
+        border-color: #fd2034;
+    }
 }
 
 .btn.focus, .btn:focus, .btn:hover {
@@ -259,6 +271,13 @@ fieldset {
     font-family: 'Special Elite', cursive;
 }
 
+.wallet-string {
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    font-size: 10pt;
+    z-index: 1020;
+}
 
 
 /* Navigation Menu */
@@ -270,13 +289,18 @@ fieldset {
     left: 0;
     top: 0;
     width: 100%;
-    z-index: 9999;
+    z-index: 1000;
     -webkit-transition: all 0.4s ease-out;
     transition: all 0.4s ease-out;
 
     &.bg-dark, .bg-dark {
+        padding-top: 14px;
         background-color: #000000 !important;
         transition: all 0.4s ease-out;
+
+        .wallet-string {
+            color: #fff;
+        }
 
         li a, .logo a {
             color: white !important;
@@ -296,6 +320,10 @@ fieldset {
             background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280,0,0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
     }
+}
+
+.please-connect {
+    font-size: 20pt;
 }
 
 .logo {

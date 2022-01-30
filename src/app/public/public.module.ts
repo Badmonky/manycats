@@ -6,7 +6,6 @@ import { SharedModule } from '../shared/shared.module';
 import { NftDropComponent } from './nft-drop/nft-drop.component';
 import { PlaygroundComponent } from './playground/playground.component';
 
-
 @NgModule({
   declarations: [
     LandingpageComponent,

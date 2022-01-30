@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ScrollService } from 'src/app/services/scroll.service';
 import { WalletService } from 'src/app/services/wallet.service';
 
 @Component({
@@ -16,17 +15,31 @@ export class NavComponent implements OnInit, OnDestroy, AfterViewInit {
   isDark: boolean = false;
   isConnected: boolean = false;
 
+  account: string | null = null;
+
   subs: Subscription[] = [];
 
   constructor(
     private router: Router,
-    private wallet: WalletService
+    private wallet: WalletService,
+    private cdref: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.subs.push(
       this.wallet.onConnect$.subscribe(isConnected => {
         this.isConnected = isConnected;
+      })
+    );
+
+    this.subs.push(
+      this.wallet.onAccount$.subscribe((account: string | null) => {
+        if(!account) {
+          this.account = null;
+          return;
+        }
+        this.account = account;
+        this.cdref.detectChanges();
       })
     );
   }
