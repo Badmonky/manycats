@@ -7,7 +7,8 @@ export interface Vote {
   id?: string,
   submission_id: string
   address: string,
-  weight: number
+  weight: number,
+  type: string
 }
 
 @Injectable({
@@ -23,7 +24,7 @@ export class VoteService {
     this._db.use("votes");
   }
 
-  all(querray: string[][] = [[]]): Observable<Vote[]> {
+  all(querray: any[][] = [[]]): Observable<Vote[]> {
     return this._db.all(querray);
   }
 
@@ -40,6 +41,6 @@ export class VoteService {
   }
 
   update(vote: Vote) {
-    return this._db.update(vote.id, { text: vote.submission_id });
+    return this._db.update(vote.id, { submission_id: vote.submission_id });
   }
 }

@@ -16,9 +16,7 @@ export class DbService<T> {
 
   all(querray: any[][] = [[]]): Observable<T[]> {
     let ref: any = collection(this.firestore, this._collection);
-    let wh: QueryConstraint[] = [
-      orderBy("created_at", "desc")
-    ];
+    let wh: QueryConstraint[] = [];
 
     querray.forEach(q => {
       if (q.length === 3) {
@@ -37,11 +35,10 @@ export class DbService<T> {
   }
 
   create(data: T) {
-    var ts = Timestamp.fromDate(new Date());
     const colRef = collection(this.firestore, this._collection);
 
     //@ts-ignore
-    data.created_at = ts;
+    data.created_at = Timestamp.fromDate(new Date());
     return addDoc(colRef, data);
   }
 
@@ -60,8 +57,7 @@ export class DbService<T> {
 
     const colRef = doc(this.firestore, `${this._collection}/${id}`);
 
-    //@ts-ignore
-    data.updated_at = ts;
+    data.updated_at = Timestamp.fromDate(new Date());
     return updateDoc(colRef, data);
   }
 }

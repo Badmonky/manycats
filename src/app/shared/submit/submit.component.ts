@@ -18,8 +18,6 @@ export class SubmitComponent implements OnInit, OnDestroy {
 
   subs: Subscription[] = [];
 
-  _account: string | null = null;
-
   _text: string = "";
   set text(t: string) {
     this._text = t;
@@ -36,11 +34,6 @@ export class SubmitComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.subs.push(
-      this.wallet.onAccount$.subscribe(account => {
-        this._account = account;
-      })
-    );
   }
 
   ngOnDestroy(): void {
@@ -48,22 +41,31 @@ export class SubmitComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    if (!(this.day && this.dayIndex && this._account && this._text)) {
+    if (!(this.day && this.dayIndex && this.wallet.connectedAccount && this._text)) {
+      return;
+    }
+
+    if (this._text.length < 32) {
+      this.alert.error("Your story is too short to qualify");
       return;
     }
 
     const submission: Submission = {
       text: this._text,
       day: this.day + this.dayIndex,
-      address: this._account,
+      address: this.wallet.connectedAccount
     }
 
-    this.submissionService.create(submission).then(_ => {
-      this._text = "";
-      this.alert.success("Your submission was successful!");
-      this.onSubmit.emit();
+    this.wallet.sign(this._text).then(_ => {
+      this.submissionService.create(submission).then(_ => {
+        this._text = "";
+        this.alert.success("Your submission was successful!");
+        this.onSubmit.emit();
+      }).catch(_ => {
+        this.alert.error("Your submission was  not successful!");
+      });
     }).catch(_ => {
-      this.alert.error("Your submission was  not successful!");
+      console.log("NOT cool :(");
     });
   }
 }

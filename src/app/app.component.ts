@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationCancel, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { AuthService } from './services/auth.service';
 import { NavigationService } from './services/navigation.service';
 
 @Component({
@@ -8,13 +9,14 @@ import { NavigationService } from './services/navigation.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   navHeight: number = 0;
 
   constructor(
     private cdref: ChangeDetectorRef,
     private nav: NavigationService,
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) {
     this.router.events.pipe(
       filter(
@@ -27,6 +29,12 @@ export class AppComponent {
 
         this.nav.currentUrl(val.url);
       });
+  }
+
+  ngOnInit(): void {
+    if (sessionStorage.getItem("eth_conn")) {
+      this.auth.connectToMetaMask();
+    }
   }
 
   setNavHeight(h: number) {

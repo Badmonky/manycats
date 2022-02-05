@@ -5,7 +5,7 @@
                 <h3 class="font-weight-bold">Vote for submissions</h3>
                 <p class="mb-0">
                     Choose your favourite submission for today. This will help continue the story in a way that you like
-                    most!
+                    most! Each day one submission from each timeline, with the most votes, gets included into the story!
                 </p>
             </div>
         </div>
@@ -22,6 +22,15 @@
             </div>
             <div class="row" *ngFor="let story of past">
                 <div class="col-12 mb-4">
+                    <div class="vote-container">
+                        <div class="vote-body">
+                            <div class="vote-count">+{{storyVotes[story.id || ""] || 0}}</div>
+                            <div class="vote-action" (click)="vote(story, 'past')">
+                                <i class="mdi mdi-thumb-up"
+                                    [ngClass]="{'color-red': story.id === myVotes['past']?.submission_id}"></i>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card shadow-sm bw-md border-primary text-primary">
                         <div class="card-body">
                             <div class="post-meta float-right"><a class="text-primary" href="javascript:void(0)">Writer:
@@ -41,6 +50,15 @@
             </div>
             <div class="row" *ngFor="let story of future">
                 <div class="col-12 mb-4">
+                    <div class="vote-container">
+                        <div class="vote-body">
+                            <div class="vote-count">+{{storyVotes[story.id || ""] || 0}}</div>
+                            <div class="vote-action" (click)="vote(story, 'future')">
+                                <i class="mdi mdi-thumb-up"
+                                    [ngClass]="{'color-red': story.id === myVotes['future']?.submission_id}"></i>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card shadow-sm bw-md border-primary text-primary">
                         <div class="card-body">
                             <div class="post-meta float-right"><a class="text-primary" href="javascript:void(0)">Writer:

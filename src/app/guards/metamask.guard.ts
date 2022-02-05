@@ -21,23 +21,28 @@ export class MetamaskGuard implements CanActivate {
       this.isAuthorized = !!account;
       if (this.isAuthorized) {
         this.nav.navigateLast();
+        return;
       }
 
       setTimeout(() => {
         const url = this.router.url;
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
           this.router.navigate([url]));
-      }, 50);
+      }, 100);
     });
   }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (!this.isAuthorized) {
-      this.alert.error("Please connect to your Metamask");
-    }
-    return this.isAuthorized;
+    return new Promise((resolve, _) => {
+      setTimeout(() => {
+        if (!this.isAuthorized) {
+          this.alert.error("Please connect to your Metamask");
+        }
+        resolve(this.isAuthorized);
+      }, 50);
+    });
   }
 
 }
