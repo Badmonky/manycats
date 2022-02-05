@@ -12,18 +12,18 @@ export class WalletService {
 
   constructor(
     private auth: AuthService
-  ) { 
-    this.auth.onAccountChange$.subscribe((account: string | null ) => {
+  ) {
+    this.auth.onAccountChange$.subscribe((account: string | null) => {
       this.onConnect$.next(!!account);
-      this.onAccount$.next(this.shortAddress(account));
+      this.onAccount$.next(account);
     });
   }
 
   shortAddress(a: string | null): string {
-    if(!a) {
+    if (!a) {
       return "";
     }
-    return `${a.substring(0, 4)}...${a.substring(a.length -3)}`
+    return `${a.substring(0, 4)}...${a.substring(a.length - 3)}`
   }
 
   connect() {

@@ -3,3 +3,27 @@ p {
         line-height: 10px;
     }
 }
+
+.overflow-y {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.scroll-down {
+    display:flex; 
+    flex-direction: column-reverse;
+}
+
+.h-small {
+    height: 20%;
+}
+
+.h-big {
+    height: 70%;
+}
+
+.pin-bottom {
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 32px);
+}

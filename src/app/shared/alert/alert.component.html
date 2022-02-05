@@ -1,0 +1,5 @@
+<div class="row" *ngFor="let alert of alerts">
+    <div class="col-12" [class]="alert.type">
+        {{alert.text}}
+    </div>
+</div>

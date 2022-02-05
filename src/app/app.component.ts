@@ -1,4 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { NavigationCancel, NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
+import { NavigationService } from './services/navigation.service';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +12,25 @@ export class AppComponent {
   navHeight: number = 0;
 
   constructor(
-    private cdref: ChangeDetectorRef
-  ) {}
+    private cdref: ChangeDetectorRef,
+    private nav: NavigationService,
+    private router: Router
+  ) {
+    this.router.events.pipe(
+      filter(
+        ev => ev instanceof NavigationEnd || ev instanceof NavigationCancel
+      )).subscribe((val: any) => {
+        if (val instanceof NavigationEnd) {
+          this.nav.currentUrl(null);
+          return;
+        }
+
+        this.nav.currentUrl(val.url);
+      });
+  }
 
   setNavHeight(h: number) {
-    this.navHeight = h+30;
+    this.navHeight = h + 30;
     this.cdref.detectChanges();
   }
 }

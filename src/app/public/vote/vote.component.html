@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center mx-auto">
+            <div class="mt-6 mb-5">
+                <h3 class="font-weight-bold">Vote for submissions</h3>
+                <p class="mb-0">
+                    Choose your favourite submission for today. This will help continue the story in a way that you like
+                    most!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="font-weight-bold">Past</h3>
+                </div>
+            </div>
+            <div class="row" *ngFor="let story of past">
+                <div class="col-12 mb-4">
+                    <div class="card shadow-sm bw-md border-primary text-primary">
+                        <div class="card-body">
+                            <div class="post-meta float-right"><a class="text-primary" href="javascript:void(0)">Writer:
+                                    <span class="color-red">{{story.address}}</span></a></div>
+                            <h5 class="card-title text-primary">DAY {{story.day}}</h5>
+                            <p class="card-text">{{story.text}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="font-weight-bold">Future</h3>
+                </div>
+            </div>
+            <div class="row" *ngFor="let story of future">
+                <div class="col-12 mb-4">
+                    <div class="card shadow-sm bw-md border-primary text-primary">
+                        <div class="card-body">
+                            <div class="post-meta float-right"><a class="text-primary" href="javascript:void(0)">Writer:
+                                    <span class="color-red">{{story.address}}</span></a></div>
+                            <h5 class="card-title text-primary">DAY {{story.day}}</h5>
+                            <p class="card-text">{{story.text}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

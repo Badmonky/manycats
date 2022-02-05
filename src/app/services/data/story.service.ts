@@ -1,11 +1,20 @@
 import { Injectable } from '@angular/core';
+import { Firestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { DbService } from './db.service';
+
+export interface Story {
+  id?: string,
+  address: string,
+  text: string,
+  day: number,
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoryService {
-
-  stories = [
+  stories: Story[] = [
     {
       day: -12, address: "0x3ec0071fd8522e55b66de4c2a1a3b57e07e6b183de5360dcd98bb829bf5ae200",
       text: `I remember bits and pieces of a tale my pops once told me. They almost succeeded to eradicate those memories, but some have stuck. The tale was about the early days of the decentralization. The early days of change from what once was primarily a capitalistic society. Back then many people believed in a glorious future based on decentralized decision making powered by predefined rules and voted on by anyone. According to him the early days actually worked very well. Ideals and values prevailed in the new structures that emerged. Its hard for me to believe. Knowing what I know from my lifetime, or at least the parts I remember. These days votes seem to be a tool they use to keep us down, a tool to overwhelm us.`
@@ -92,7 +101,7 @@ export class StoryService {
     },
     {
       day: +9, address: "0x3ec0071fd8522e55b66de4c2a1a3b57e07e6b183de5360dcd98bb829bf5ae200",
-      text: `Almost a week has passed since I had possibly the most dangerous though of my life. I hoped it would pass, I would just chalk it off as a crazy idea, and banish it from my memory as if it was never thought. Yet, I find myself in the middle of my living room writing my thoughts on toilet paper, drawing schematics of what I thought the house layout may be, scribbling any piece of information I ought to consider.  I figured since I cannot shake this crazy idea, I better try to get prepared, think through it as thoroughly as I could by myself before even considering any other moves. The only time to do that was a daily ~20min window between me arriving at home and Sharon coming back with the kids. That’s how long it took her to fetch them from school on her way home. I guess I just found something positive about our meticulously structured days, and routines. It always was exactly a 20min window. Not a minute less, and not a minute more. And I chose toilet paper of course, a rather flimsy kind of paper, since that just may allow me to stand a chance to destroy all the evidence should they come knocking.`
+      text: `Almost a week has passed since I had possibly the most dangerous though of my life. I hoped it would pass, I would just chalk it off as a crazy idea, and banish it from my memory as if it was never thought. Yet, I find myself in the middle of my living room writing my thoughts on toilet paper, drawing schematics of what I thought the house layout may be, scribbling any piece of information I ought to consider.  I figured since I cannot shake this crazy idea, I better try to get prepared, think through it as thoroughly as I could by myself before even considering any other moves. The only time to do that was a daily ~20min window between me arriving at home and Sharon coming back with the kids. That’s how long it took her to fetch them from school on her way home. I guess I just found something positive about our meticulously structured days, and routines. It always was exactly a 20min window. Not a minute less, and not a minute more. And I chose toilet paper of course, a rather flimsy kind of paper, since that just may allow me to stand a chance to destory all the evidence should they come knocking.`
     },
     {
       day: +10, address: "0xce6e912a5790a3acf13382a253f9a8ae7fffbe08379a080d4bc5520a00aa6020",
@@ -108,5 +117,32 @@ export class StoryService {
     },
   ];
 
-  constructor() { }
+
+  _db: DbService<Story>;
+  constructor(
+    private firestore: Firestore,
+  ) {
+    this._db = new DbService<Story>(firestore);
+    this._db.use("stories");
+  }
+
+  all(querray: string[][] = [[]]): Observable<Story[]> {
+    return this._db.all(querray);
+  }
+
+  read(id: string): Observable<Story> {
+    return this._db.read(id);
+  }
+
+  create(story: Story) {
+    return this._db.create(story);
+  }
+
+  delete(story: Story) {
+    return this._db.delete(story);
+  }
+
+  update(story: Story) {
+    return this._db.update(story.id, { text: story.text });
+  }
 }

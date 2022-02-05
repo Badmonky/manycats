@@ -3,11 +3,14 @@ import { CommonModule } from '@angular/common';
 import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
 import { SubmitComponent } from './submit/submit.component';
+import { AlertComponent } from './alert/alert.component';
+import { FormsModule } from '@angular/forms';
 
 const COMPONENTS = [
   NavComponent,
   FooterComponent,
-  SubmitComponent
+  SubmitComponent,
+  AlertComponent
 ];
 
 @NgModule({
@@ -15,7 +18,8 @@ const COMPONENTS = [
     ...COMPONENTS,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     ...COMPONENTS

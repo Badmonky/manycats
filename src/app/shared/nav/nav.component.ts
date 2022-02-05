@@ -9,7 +9,7 @@ import { WalletService } from 'src/app/services/wallet.service';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild("header", {static: true}) header: ElementRef;
+  @ViewChild("header", { static: true }) header: ElementRef;
   @Output() getHeight: EventEmitter<number> = new EventEmitter();
 
   isDark: boolean = false;
@@ -34,11 +34,11 @@ export class NavComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.subs.push(
       this.wallet.onAccount$.subscribe((account: string | null) => {
-        if(!account) {
+        if (!account) {
           this.account = null;
           return;
         }
-        this.account = account;
+        this.account = this.wallet.shortAddress(account);
         this.cdref.detectChanges();
       })
     );
@@ -53,9 +53,9 @@ export class NavComponent implements OnInit, OnDestroy, AfterViewInit {
     this.getHeight.emit(height);
   }
 
-  @HostListener('window:scroll', ['$event']) 
+  @HostListener('window:scroll', ['$event'])
   onScroll(event: any) {
-    if(window.pageYOffset > 50) {
+    if (window.pageYOffset > 50) {
       this.isDark = true;
       return;
     }
@@ -63,20 +63,20 @@ export class NavComponent implements OnInit, OnDestroy, AfterViewInit {
     this.isDark = false;
   }
 
-  navigate(path: string, pub=false, scroll=true) {
-    if(scroll) {
-      window.scroll({ 
-        top: 0, 
-        left: 0, 
-        behavior: 'smooth' 
+  navigate(path: string, pub = false, scroll = true) {
+    if (scroll) {
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
       });
     }
-    
+
     this.router.navigate([`${pub ? ('/p') : ''}/${path}`]);
   }
 
   handleConnect() {
-    if(this.isConnected) {
+    if (this.isConnected) {
       this.wallet.disconnect();
       return;
     }
