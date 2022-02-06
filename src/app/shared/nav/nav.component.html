@@ -4,7 +4,7 @@
         <div class="container">
             <div class="logo">
                 <a href="/">
-                    Time Writer
+                    Time Writer<div *ngIf="maxDay !== undefined">DAY {{maxDay}}</div>
                 </a>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"

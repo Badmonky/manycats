@@ -12,8 +12,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private cdref: ChangeDetectorRef,
-    private auth: AuthService,
-    private config: ConfigService
+    private auth: AuthService
   ) { }
 
   ngOnInit(): void {

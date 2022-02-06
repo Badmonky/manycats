@@ -36,7 +36,14 @@ export class VoteComponent implements OnInit {
     return this.count.isPrepare;
   }
 
+  _redirect: boolean = false
   get canVote() {
+    if (!this._redirect && this.count.isSubmission) {
+      this._redirect = true;
+      setTimeout(() => {
+        this.router.navigate(["/p/scribble"]);
+      }, 100);
+    }
     return this.count.isVoting;
   }
 

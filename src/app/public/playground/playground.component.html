@@ -63,7 +63,8 @@
                                                 <div class="post-meta float-right"><a class="text-primary"
                                                         href="javascript:void(0)">Writer: <span
                                                             class="color-red">{{story.address}}</span></a></div>
-                                                <h5 class="card-title text-primary">DAY {{story.day}}</h5>
+                                                <h5 class="card-title text-primary">DAY <span
+                                                        *ngIf="story.day > 0">+</span>{{story.day}}</h5>
                                                 <p class="card-text">{{story.text}}</p>
                                             </div>
                                         </div>
@@ -90,7 +91,8 @@
                                                 <div class="post-meta float-right"><a class="text-primary"
                                                         href="javascript:void(0)">Writer: <span
                                                             class="color-red">{{story.address}}</span></a></div>
-                                                <h5 class="card-title text-primary">DAY {{story.day}}</h5>
+                                                <h5 class="card-title text-primary">DAY <span
+                                                        *ngIf="story.day > 0">+</span>{{story.day}}</h5>
                                                 <p class="card-text">{{story.text}}</p>
                                             </div>
                                         </div>
@@ -112,7 +114,8 @@
                                     <div class="post-meta float-right"><a class="text-primary"
                                             href="javascript:void(0)">
                                             Writer: <span class="color-red">{{story.address}}</span></a></div>
-                                    <h5 class="card-title color-red">DAY {{story.day}}</h5>
+                                    <h5 class="card-title color-red">DAY <span
+                                            *ngIf="story.day > 0">+</span>{{story.day}}</h5>
                                     <p class="card-text">{{story.text}}</p>
                                 </div>
                             </div>

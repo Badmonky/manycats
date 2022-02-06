@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
+import { ConfigService } from 'src/app/services/data/config.service';
 import { WalletService } from 'src/app/services/wallet.service';
 
 @Component({
@@ -17,15 +18,24 @@ export class NavComponent implements OnInit, OnDestroy, AfterViewInit {
 
   account: string | null = null;
 
+  maxDay: number;
+
   subs: Subscription[] = [];
 
   constructor(
     private router: Router,
     private wallet: WalletService,
-    private cdref: ChangeDetectorRef
+    private cdref: ChangeDetectorRef,
+    private config: ConfigService
   ) { }
 
   ngOnInit(): void {
+    this.config.maxDay$.pipe(
+      take(1)
+    ).subscribe(day => {
+      this.maxDay = day;
+    });
+
     this.subs.push(
       this.wallet.onConnect$.subscribe(isConnected => {
         this.isConnected = isConnected;
