@@ -43,6 +43,10 @@ export class CountdownComponent implements OnInit, AfterViewInit {
     private cdref: ChangeDetectorRef
   ) { }
 
+  get show() {
+    return !this.count.isPrepare;
+  }
+
   ngAfterViewInit(): void {
     this._calcWidth();
   }
