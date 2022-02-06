@@ -26,7 +26,7 @@ export class CountdownService {
   minute: string = "00";
   second: string = "00";
 
-  _start = moment.utc("2022-02-06 00:00:00").toDate()
+  _start = moment.utc("2022-02-06 00:00:30").toDate()
 
   constructor() {
     console.log("Offset ", moment().utcOffset(), this.date);
