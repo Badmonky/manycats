@@ -7,6 +7,7 @@ p {
 .overflow-y {
     overflow-y: scroll;
     overflow-x: hidden;
+    padding: 5px;
 }
 
 .scroll-down {
@@ -20,6 +21,10 @@ p {
 
 .h-big {
     height: 65%;
+    border-top: 1px dashed #000;
+    border-bottom: 1px dashed #000;
+    border-left: 1px dashed #000;
+    padding: 20px;
 }
 
 .pin-bottom {

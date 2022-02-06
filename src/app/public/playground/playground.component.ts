@@ -1,6 +1,10 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { Subscription, take } from 'rxjs';
+import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { CountdownService } from 'src/app/services/countdown.service';
+import { ConfigService } from 'src/app/services/data/config.service';
 import { Story, StoryService } from 'src/app/services/data/story.service';
 import { WalletService } from 'src/app/services/wallet.service';
 
@@ -12,24 +16,44 @@ import { WalletService } from 'src/app/services/wallet.service';
 export class PlaygroundComponent implements OnInit, OnDestroy {
   @ViewChild("canvasAfter") canvasAfter: ElementRef;
 
-  minDay: number = 0;
   maxDay: number = 0;
 
   subs: Subscription[] = [];
   stories: any[] = [];
 
   constructor(
+    private config: ConfigService,
     private auth: AuthService,
     private storyService: StoryService,
-    private wallet: WalletService
+    private wallet: WalletService,
+    private count: CountdownService,
+    private router: Router,
+    private alert: AlertService
   ) { }
 
+  get canSubmit() {
+    return this.count.isSubmission;
+  }
+
+  get countdown() {
+    return `${this.count.hour} hours ${this.count.minute} minutes ${this.count.second} seconds`;
+  }
+
   get storiesReverse() {
-    return this.stories.reverse();
+    const s = [...this.stories];
+    return s.reverse();
   }
 
   connect() {
     this.auth.connectToMetaMask();
+  }
+
+  goToVote() {
+    if (!this.count.isVoting) {
+      this.alert.error("Voting is currently disabled!");
+      return;
+    }
+    this.router.navigate(["/p/vote"]);
   }
 
   scrollDown() {
@@ -39,17 +63,31 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.stories = this.storyService.stories.map((s: Story) => {
-      s.address = this.wallet.shortAddress(s.address);
+    if (this.count.isVoting) {
+      this.goToVote();
+      return;
+    }
 
-      if (this.minDay > s.day) {
-        this.minDay = s.day;
-      }
+    this.config.maxDay$.pipe(
+      take(1)
+    ).subscribe(day => {
+      this.maxDay = day;
 
-      if (this.maxDay < s.day) {
-        this.maxDay = s.day;
-      }
-      return s;
+      this.storyService.all().subscribe((stories: Story[]) => {
+        this.stories = [];
+        stories.forEach(s => {
+          s.address = this.wallet.shortAddress(s.address);
+          this.stories.push(s);
+        });
+
+        this.stories = this.stories.sort((a, b) => {
+          if (a.day === b.day) {
+            return 0;
+          }
+
+          return a.day > b.day ? 1 : -1;
+        })
+      });
     });
   }
 

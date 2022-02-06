@@ -1,0 +1,18 @@
+<div class="abs">
+    <div class="bg">
+        <div class="countdown" [style.width.px]="maxWidth">
+            <div class="period">
+                <span #span>Current Period: <b class="color-red">{{period}}</b></span>
+            </div>
+            <div class="clock">
+                <div class="container" [style.width.px]="containerWidth">
+                    <div class="time" #c1>{{hour}}</div>
+                    <div class="separator" #c2>:</div>
+                    <div class="time" #c3>{{min}}</div>
+                    <div class="separator" #c4>:</div>
+                    <div class="time" #c5>{{sec}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

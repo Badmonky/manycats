@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
+import { CountdownService } from 'src/app/services/countdown.service';
 import { Submission, SubmissionService } from 'src/app/services/data/submission.service';
 import { WalletService } from 'src/app/services/wallet.service';
 
@@ -12,7 +14,6 @@ import { WalletService } from 'src/app/services/wallet.service';
 export class SubmitComponent implements OnInit, OnDestroy {
   @Input() title: string = "";
   @Input() day: number;
-  @Input() dayIndex: number;
 
   @Output() onSubmit: EventEmitter<any> = new EventEmitter();
 
@@ -30,8 +31,18 @@ export class SubmitComponent implements OnInit, OnDestroy {
   constructor(
     private submissionService: SubmissionService,
     private wallet: WalletService,
-    private alert: AlertService
+    private alert: AlertService,
+    private count: CountdownService,
+    private router: Router
   ) { }
+
+  get isSubmission() {
+    return this.count.isSubmission;
+  }
+
+  get isVoting() {
+    return this.count.isVoting;
+  }
 
   ngOnInit(): void {
   }
@@ -40,8 +51,15 @@ export class SubmitComponent implements OnInit, OnDestroy {
     this.subs.forEach(s => s.unsubscribe());
   }
 
+  goToVote() {
+    this.onSubmit.emit()
+    setTimeout(() => {
+      this.router.navigate(["/p/vote"]);
+    }, 300);
+  }
+
   submit() {
-    if (!(this.day && this.dayIndex && this.wallet.connectedAccount && this._text)) {
+    if (!((this.day || this.day === 0) && this.wallet.connectedAccount && this._text)) {
       return;
     }
 
@@ -52,7 +70,7 @@ export class SubmitComponent implements OnInit, OnDestroy {
 
     const submission: Submission = {
       text: this._text,
-      day: this.day + this.dayIndex,
+      day: this.day,
       address: this.wallet.connectedAccount
     }
 

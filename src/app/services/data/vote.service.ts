@@ -8,7 +8,7 @@ export interface Vote {
   submission_id: string
   address: string,
   weight: number,
-  type: string
+  day: number,
 }
 
 @Injectable({

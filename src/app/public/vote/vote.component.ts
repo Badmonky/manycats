@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { take } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
+import { CountdownService } from 'src/app/services/countdown.service';
+import { ConfigService } from 'src/app/services/data/config.service';
 import { Submission, SubmissionService } from 'src/app/services/data/submission.service';
 import { Vote, VoteService } from 'src/app/services/data/vote.service';
 import { WalletService } from 'src/app/services/wallet.service';
@@ -16,61 +20,82 @@ export class VoteComponent implements OnInit {
   past: Submission[] = [];
   future: Submission[] = [];
 
+  maxDay: number = 0;
+
   constructor(
+    private config: ConfigService,
     private wallet: WalletService,
     private submissionService: SubmissionService,
     private votingService: VoteService,
-    private alert: AlertService
+    private alert: AlertService,
+    private count: CountdownService,
+    private router: Router
   ) { }
+
+  get canVote() {
+    return this.count.isVoting;
+  }
 
   ngOnInit(): void {
     if (!this.wallet.connectedAccount) {
       return;
     }
 
-    this.submissionService.all([
-      ["day", "in", [13, -13]]
-    ]).subscribe((submissions: Submission[]) => {
-      const subIds: string[] = [];
-      submissions.forEach(d => {
-        if (!d.id) {
+    if (this.count.isSubmission) {
+      this.alert.error("Voting is currently disabled!");
+      this.router.navigate(["/p/scribble"]);
+      return;
+    }
+
+    this.config.maxDay$.pipe(
+      take(1)
+    ).subscribe(day => {
+      this.maxDay = day;
+
+      this.submissionService.all([
+        ["day", "in", [this.maxDay, -this.maxDay]]
+      ]).subscribe((submissions: Submission[]) => {
+        const subIds: string[] = [];
+        submissions.forEach(d => {
+          if (!d.id) {
+            return;
+          }
+
+          subIds.push(d.id);
+          d.address = this.wallet.shortAddress(d.address);
+
+          if (d.day < 0) {
+            this.past.push(d);
+          } else if (d.day >= 0) {
+            this.future.push(d);
+          }
+        });
+
+        if (subIds.length === 0) {
           return;
         }
 
-        subIds.push(d.id);
-        d.address = this.wallet.shortAddress(d.address);
+        this.votingService.all([
+          ["submission_id", "in", subIds]
+        ]).subscribe((votes: Vote[]) => {
+          this.storyVotes = {};
+          this.myVotes = {};
 
-        if (d.day < 0) {
-          this.past.push(d);
-        } else if (d.day > 0) {
-          this.future.push(d);
-        }
-      });
+          votes.forEach(v => {
+            if (v.address === this.wallet.connectedAccount) {
+              this.myVotes[v.day] = v;
+            }
 
-      if (subIds.length === 0) {
-        return;
-      }
+            if (!this.storyVotes[v.submission_id]) {
+              this.storyVotes[v.submission_id] = 0;
+            }
 
-      this.votingService.all([
-        ["submission_id", "in", subIds]
-      ]).subscribe((votes: Vote[]) => {
-        this.storyVotes = {};
-        this.myVotes = {};
+            this.storyVotes[v.submission_id] += v.weight;
+          });
 
-        votes.forEach(v => {
-          if (v.address === this.wallet.connectedAccount) {
-            this.myVotes[v.type] = v;
-          }
-
-          if (!this.storyVotes[v.submission_id]) {
-            this.storyVotes[v.submission_id] = 0;
-          }
-
-          this.storyVotes[v.submission_id] += v.weight;
+          this.past = this._sort(this.past);
+          this.future = this._sort(this.future);
         });
-
-        this.past = this._sort(this.past);
-        this.future = this._sort(this.future);
       });
     });
   }
@@ -84,12 +109,12 @@ export class VoteComponent implements OnInit {
     });
   }
 
-  vote(s: Submission, type: string) {
+  vote(s: Submission, day: number) {
     if (!(s.id && this.wallet.connectedAccount)) {
       return;
     }
 
-    const currentVote: Vote = this.myVotes[type];
+    const currentVote: Vote = this.myVotes[day];
     if (currentVote && currentVote.submission_id === s.id) {
       this.alert.error("You have already voted for this option");
       return;
@@ -99,7 +124,7 @@ export class VoteComponent implements OnInit {
       submission_id: s.id,
       address: this.wallet.connectedAccount,
       weight: 1,
-      type
+      day
     }
 
     this.wallet.sign(`VOTE FOR - ${s.text}`).then(_ => {
