@@ -30,9 +30,7 @@ export class NavComponent implements OnInit, OnDestroy, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    this.config.maxDay$.pipe(
-      take(1)
-    ).subscribe(day => {
+    this.config.maxDay$.subscribe(day => {
       this.maxDay = day;
     });
 

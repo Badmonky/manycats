@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 import { AlertService } from './alert.service';
 
-class MyError extends Error { };
-
 @Injectable({
   providedIn: 'root',
 })
@@ -87,10 +85,6 @@ export class AuthService {
           }, 100);
         } catch (error) {
           this.connectedAccount = null;
-          if (error instanceof MyError) {
-            this.handleError(error.message);
-            return;
-          }
           this.handleError("Couldn't connect to MetaMask");
         }
         return;
