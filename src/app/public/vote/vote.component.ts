@@ -32,6 +32,10 @@ export class VoteComponent implements OnInit {
     private router: Router
   ) { }
 
+  get isPrepare() {
+    return this.count.isPrepare;
+  }
+
   get canVote() {
     return this.count.isVoting;
   }
@@ -42,7 +46,7 @@ export class VoteComponent implements OnInit {
     }
 
     if (this.count.isSubmission) {
-      this.alert.error("Voting is currently disabled!");
+      this.alert.warning("Voting is currently disabled!");
       this.router.navigate(["/p/scribble"]);
       return;
     }

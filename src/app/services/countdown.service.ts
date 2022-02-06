@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
-// Time to submit + Time to vote;
-const HOURS_TOTAL = 48;
-
 @Injectable({
   providedIn: 'root'
 })
 export class CountdownService {
 
   isVoting: boolean = false;
-  isSubmission: boolean = true;
+  isSubmission: boolean = false;
+
+  get isPrepare() {
+    return !(this.isVoting || this.isSubmission)
+  }
 
   set switchInSeconds(t: number) {
-    const h = Math.floor((t / 60 / 60) % (HOURS_TOTAL / 2));
+    const h = Math.floor((t / 60 / 60) % (this._runtime_hours / 2));
     const m = Math.floor((t / 60) % 60);
     const s = Math.floor(t % 60);
 
@@ -26,10 +27,19 @@ export class CountdownService {
   minute: string = "00";
   second: string = "00";
 
-  _start = moment.utc("2022-02-06 00:00:30").toDate()
+  _runtime_hours: number = 0;
+  _start: moment.Moment;
 
   constructor() {
-    console.log("Offset ", moment().utcOffset(), this.date);
+  }
+
+  init(date: moment.Moment, runtime: number) {
+    if (this._start !== undefined) {
+      return;
+    }
+
+    this._runtime_hours = runtime;
+    this._start = date;
 
     this._calc();
     setInterval(this._calc.bind(this), 1000);
@@ -38,16 +48,16 @@ export class CountdownService {
   _calc() {
     //@ts-ignore
     const ts = this.date - this._start;
-    const time = (ts / 1000 / 60 / 60) % HOURS_TOTAL
+    const time = (ts / 1000 / 60 / 60) % this._runtime_hours
 
-    this.switchInSeconds = (86400 / 24) * (HOURS_TOTAL / 2) - (((ts / 1000 / 60 / 60) % (HOURS_TOTAL / 2)) * 60 * 60);
+    this.switchInSeconds = (86400 / 24) * (this._runtime_hours / 2) - (((ts / 1000 / 60 / 60) % (this._runtime_hours / 2)) * 60 * 60);
 
-    const isSubmissionPeriod = time <= (HOURS_TOTAL / 2);
+    const isSubmissionPeriod = time <= (this._runtime_hours / 2);
     this.isSubmission = isSubmissionPeriod;
     this.isVoting = !isSubmissionPeriod;
   }
 
   get date() {
-    return moment.utc().toDate()
+    return moment.utc();
   }
 }

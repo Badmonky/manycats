@@ -6,13 +6,15 @@ import { SubmitComponent } from './submit/submit.component';
 import { AlertComponent } from './alert/alert.component';
 import { FormsModule } from '@angular/forms';
 import { CountdownComponent } from './countdown/countdown.component';
+import { PrepareComponent } from './prepare/prepare.component';
 
 const COMPONENTS = [
   NavComponent,
   FooterComponent,
   SubmitComponent,
   AlertComponent,
-  CountdownComponent
+  CountdownComponent,
+  PrepareComponent
 ];
 
 @NgModule({

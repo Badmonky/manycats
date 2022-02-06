@@ -31,6 +31,10 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
     private alert: AlertService
   ) { }
 
+  get isPrepare() {
+    return this.count.isPrepare;
+  }
+
   get canSubmit() {
     return this.count.isSubmission;
   }
@@ -50,7 +54,7 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
 
   goToVote() {
     if (!this.count.isVoting) {
-      this.alert.error("Voting is currently disabled!");
+      this.alert.warning("Voting is currently disabled!");
       return;
     }
     this.router.navigate(["/p/vote"]);

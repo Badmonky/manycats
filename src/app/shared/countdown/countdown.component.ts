@@ -14,8 +14,29 @@ export class CountdownComponent implements OnInit, AfterViewInit {
   @ViewChild("c4") c4: ElementRef;
   @ViewChild("c5") c5: ElementRef;
 
-  maxWidth: number = 100000;
-  containerWidth: number = 100000;
+  _maxWidth: number = 100000;
+  set maxWidth(mw: number) {
+    if (this._maxWidth === mw) {
+      return;
+    }
+    this._maxWidth = mw;
+    this.cdref.detectChanges();
+  }
+  get maxWidth() {
+    return this._maxWidth;
+  }
+
+  _containerWidth: number = 100000;
+  set containerWidth(cw: number) {
+    if (this._containerWidth === cw) {
+      return;
+    }
+    this._containerWidth = cw;
+    this.cdref.detectChanges();
+  }
+  get containerWidth() {
+    return this._containerWidth;
+  }
 
   constructor(
     private count: CountdownService,
@@ -32,19 +53,20 @@ export class CountdownComponent implements OnInit, AfterViewInit {
 
     setTimeout(() => {
       this.maxWidth = this.span.nativeElement.offsetWidth + 1;
-      this.cdref.detectChanges();
 
       this.containerWidth = this.c1.nativeElement.offsetWidth
         + this.c2.nativeElement.offsetWidth
         + this.c3.nativeElement.offsetWidth
         + this.c4.nativeElement.offsetWidth
         + this.c5.nativeElement.offsetWidth + 30;
+
+      this.cdref.detectChanges();
     }, 100);
   }
 
   _period: string = "";
   get period() {
-    const period = this.count.isVoting ? "Voting" : "Submission";
+    const period = this.count.isVoting ? "Voting" : this.count.isSubmission ? "Submission" : "Preparation";
     if (this._period !== period) {
       this._calcWidth();
     }

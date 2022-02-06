@@ -15,7 +15,10 @@ export class AlertComponent implements OnInit {
 
   ngOnInit(): void {
     this.alert.alerts$.subscribe(alerts => {
-      this.alerts = alerts;
+      const a = [...alerts];
+      a.reverse();
+
+      this.alerts = a;
     });
   }
 

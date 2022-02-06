@@ -3,7 +3,6 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from 'rxjs';
 import { AlertService } from '../services/alert.service';
 import { AuthService } from '../services/auth.service';
-import { NavigationService } from '../services/navigation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +13,11 @@ export class MetamaskGuard implements CanActivate {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private alert: AlertService,
-    private nav: NavigationService
+    private alert: AlertService
   ) {
     this.auth.onAccountChange$.subscribe((account) => {
       this.isAuthorized = !!account;
       if (this.isAuthorized) {
-        this.nav.navigateLast();
         return;
       }
 

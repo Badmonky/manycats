@@ -14,14 +14,25 @@ export class AlertService {
   }
 
   dismiss(id: string) {
-    this._alerts = this._alerts.filter(a => a.id !== id);
+    this._alerts = this._alerts.map(a => {
+      a.rot *= -1;
+      return a;
+    }).filter(a => a.id !== id);
     this.alerts$.next(this._alerts);
   }
 
+
+  _rot = 1;
   _makeAlert(text: string, type: string) {
+    if (this._alerts.length === 0) {
+      this._rot = -1;
+    }
+
+    this._rot *= -1;
+
     const id = uuid.v4();
     this._alerts.push({
-      id, text, type
+      id, text, type, rot: this._rot
     });
     this.alerts$.next(this._alerts);
     setTimeout(() => {

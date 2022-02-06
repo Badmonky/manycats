@@ -1,8 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { NavigationCancel, NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
 import { AuthService } from './services/auth.service';
-import { NavigationService } from './services/navigation.service';
+import { ConfigService } from './services/data/config.service';
 
 @Component({
   selector: 'app-root',
@@ -14,22 +12,9 @@ export class AppComponent implements OnInit {
 
   constructor(
     private cdref: ChangeDetectorRef,
-    private nav: NavigationService,
-    private router: Router,
-    private auth: AuthService
-  ) {
-    this.router.events.pipe(
-      filter(
-        ev => ev instanceof NavigationEnd || ev instanceof NavigationCancel
-      )).subscribe((val: any) => {
-        if (val instanceof NavigationEnd) {
-          this.nav.currentUrl(null);
-          return;
-        }
-
-        this.nav.currentUrl(val.url);
-      });
-  }
+    private auth: AuthService,
+    private config: ConfigService
+  ) { }
 
   ngOnInit(): void {
     if (sessionStorage.getItem("eth_conn")) {
