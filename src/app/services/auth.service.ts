@@ -43,7 +43,7 @@ export class AuthService {
   }
 
   _checkChain(chainId: number) {
-    return chainId === 56
+    return chainId === 137
   }
 
   connectToMetaMask() {
@@ -80,7 +80,7 @@ export class AuthService {
           setTimeout(() => {
             if (!this._checkChain(parseInt(ethereum.chainId, 16))) {
               this.connectedAccount = null;
-              this.handleError("Please connect to Binance Smart Chain");
+              this.handleError("Please connect to Polygon");
             }
           }, 100);
         } catch (error) {
