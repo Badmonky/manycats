@@ -1,0 +1,41 @@
+p .btn {
+  margin: 15px;
+}
+
+.titleText {
+  margin-top: 50px;
+}
+
+.overflow-y {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 5px;
+}
+
+.scroll-down {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.h-small {
+  height: auto;
+}
+
+.h-big {
+  height: 70%;
+  border-top: 1px dashed #000;
+  border-left: 1px dashed #000;
+  border-bottom: 1px dashed #000;
+  padding: 20px;
+}
+.h-big.pin-bottom {
+  height: 64%;
+  bottom: 15px;
+}
+
+.pin-bottom {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 32px);
+}
+/*# sourceMappingURL=playground.component.css.map */

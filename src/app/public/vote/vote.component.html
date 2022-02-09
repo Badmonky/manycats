@@ -7,13 +7,24 @@
         <div class="row">
             <div class="col-12 text-center mx-auto">
                 <div class="mt-6 mb-5">
-                    <h3 class="font-weight-bold">Vote for submissions</h3>
-                    <p class="mb-0">
-                        Choose your favourite submission for today. This will help continue the story in a way that you
-                        like
-                        most! Each day one submission from each timeline, with the most votes, gets included into the
-                        story!
+                    <h1 class="font-weight-bold titleText">Scribble Voting</h1>
+                    <h5>Here you can vote on your favorite timewriter story submissions.</h5>
+                    <br><hr class="rounded">
+                    <br><h3>Welcome to <b>Day {{maxDay}}</b> Voting</h3><br>
+                    <p class="mb-0" *ngIf="maxDay === 0"> 
+                        <br>
+                        Choose your favorite submission for what we call the "Creation of Time", the day that will kick of the timewriter story.<br>
+                        The goal is to set the stage for future days (Day +1, Day +2, etc.) and previous days (Day -1, Day -2, etc.) to develop the story from, so choose the most intriguing entry.<br>
                     </p>
+                    <p class="mb-0"  *ngIf="maxDay > 0">
+                        In this period you can vote on your favorite submissions.<br> 
+                        Each day one submission in each direction of time, with the most votes, gets included into the story! <br>
+                        The voting period will be followed by the next submission period where writers will build on what gets voted into the timeline now.<br>
+                    </p>
+                    <!-- <p class="mb-0"  *ngIf="maxDay > 0">
+                        Choose your favourite submissions. This will help continue the story in a way that you
+                        like most! <br> Each day one submission in each direction of time, with the most votes, gets included into the story!
+                    </p> -->
                 </div>
             </div>
         </div>
@@ -24,13 +35,13 @@
             <div class="col-12 col-sm-6" *ngIf="maxDay > 0">
                 <div class="row">
                     <div class="col-12">
-                        <h3 class="font-weight-bold">Modification of Time</h3>
+                        <h3 class="font-weight-bold">Into the Past</h3>
                     </div>
                 </div>
                 <ng-container *ngIf="!past.length">
                     <div class="row">
                         <div class="col-12 mt-4">
-                            <p>We have not received any submissions yet</p>
+                            <p>No submissions for the current period.<br>Check back in the next period.</p>
                         </div>
                     </div>
                 </ng-container>
@@ -62,14 +73,14 @@
             <div class="col-12 mt-5 col-sm-6 mt-sm-0" [ngClass]="{'offset-sm-3' : maxDay === 0}">
                 <div class="row">
                     <div class="col-12">
-                        <h3 class="font-weight-bold" *ngIf="maxDay > 0">Continuation of Time</h3>
+                        <h3 class="font-weight-bold" *ngIf="maxDay > 0">Into the Future</h3>
                         <h3 class="font-weight-bold" *ngIf="maxDay === 0">Creation of Time</h3>
                     </div>
                 </div>
                 <ng-container *ngIf="!future.length">
                     <div class="row">
                         <div class="col-12 mt-4">
-                            <p>We have not received any submissions yet</p>
+                            <p>No submissions for the current period.<br>Check back in the next period.</p>
                         </div>
                     </div>
                 </ng-container>

@@ -64,7 +64,7 @@ export class SubmitComponent implements OnInit, OnDestroy {
     }
 
     if (this._text.length < 32) {
-      this.alert.error("Your story is too short to qualify");
+      this.alert.error("Your story is too short to qualify. Min 32 characters!");
       return;
     }
 

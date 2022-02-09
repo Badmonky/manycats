@@ -6,25 +6,29 @@
         <div class="row">
             <div class="col-12 text-center mx-auto">
                 <div class="mt-6 mb-5">
-                    <h3 class="font-weight-bold">This is our scribblebox</h3>
-                    <p *ngIf="maxDay === 0">Welcome to <b>Day 0</b>. Today is a special day!<br />For the next
-                        <b>{{countdown}}</b> you will be able to submit an initial story below.<br />Make it so that
-                        others
-                        can build on it - Enjoy!
+                    <h1 class="font-weight-bold titleText">This is our scribblebox</h1>
+                    <h5>Our infinite story playground, where you can submit your own ideas for the timewriter story timeline.</h5>
+                    <br><hr class="rounded">                    
+                    <p *ngIf="maxDay === 0">
+                        <br>Welcome to <b>Day 0</b>. Today is a special day!<br />
+                        For the next <b>{{countdown}}</b> you can submit your idea about how the timewriter story should begin.<br>
+                        Once this first submission period concludes we will vote on all <b>Day 0</b> submissions. <br>
+                        The <b>Day 0</b> submission which receives the most votes will start the timeline and will influence how all of the subsequent days unfold. <br>
+                        Try to create an intriguing introduction that other writers will want to build on.<br> <br>
+                        <b>{{countdown}}</b> you can submit your idea about how the timewriter story should begin.<br>
                     </p>
-                    <p *ngIf="maxDay !== 0" class="mb-0">Here you may <a href="javascript:void(0)" (click)="goToVote()"
-                            class="btn btn-primary btn-sm">vote</a> and
-                        scribble off-chain to get a feeling of collaborative writing.
-                        <br />Read the story and tell us your vision of <a (click)="scrollDown()"
-                            href="javascript:void(0)" class="btn btn-primary btn-sm" type="button"
-                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasAfter"
-                            aria-controls="offcanvasAfter">what happens next.</a>
-                        At timewriter we always write in two directions. <br />Tell us
-                        <a href="javascript:void(0)" class="btn btn-primary btn-sm" type="button"
-                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasBefore"
-                            aria-controls="offcanvasBefore">what happened
-                            before</a> and give the story a new beginning. At least for a day!
-                    </p>
+                    <p *ngIf="maxDay !== 0" class="mb-0">
+                        <br><h3>Welcome to <b>Day {{maxDay}}</b></h3>
+                        For the next <b>{{countdown}}</b> you can submit your ideas about how the timewriter story should continue.<br> 
+                        The submission period is followed by a voting period where everyone has one vote to help decide which submission gets added to the timeline.<br>
+                        Below is the full story so far, and remember, we started on <b>Day 0</b>, and you can submit suggestions for the days into the 
+                        future <b>(Day +1, Day +2, etc.)</b>, and/or the days into the past <b>(Day -1, Day -2, etc.)</b>.<br>
+                        <br>
+                        <a href="javascript:void(0)" class="btn btn-primary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBefore"
+                        aria-controls="offcanvasBefore">Submit <b>Day -{{maxDay}}</b> Suggestion</a>
+                        <a (click)="scrollDown()" href="javascript:void(0)" class="btn btn-primary btn-sm" type="button"
+                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasAfter" aria-controls="offcanvasAfter">Submit <b>Day +{{maxDay}}</b> Suggestion</a>
+                </p>
                 </div>
             </div>
         </div>
