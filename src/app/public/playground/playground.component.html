@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-12 text-center mx-auto">
                 <div class="mt-6 mb-5">
-                    <h1 class="font-weight-bold titleText">This is our scribblebox</h1>
+                    <h1 class="font-weight-bold titleText">This is our scribblebox,</h1>
                     <h5>Our infinite story playground, where you can submit your own ideas for the timewriter story timeline.</h5>
                     <br><hr class="rounded">                    
                     <p *ngIf="maxDay === 0">
@@ -15,14 +15,13 @@
                         Once this first submission period concludes we will vote on all <b>Day 0</b> submissions. <br>
                         The <b>Day 0</b> submission which receives the most votes will start the timeline and will influence how all of the subsequent days unfold. <br>
                         Try to create an intriguing introduction that other writers will want to build on.<br> <br>
-                        <b>{{countdown}}</b> you can submit your idea about how the timewriter story should begin.<br>
                     </p>
                     <p *ngIf="maxDay !== 0" class="mb-0">
                         <br><h3>Welcome to <b>Day {{maxDay}}</b></h3>
                         For the next <b>{{countdown}}</b> you can submit your ideas about how the timewriter story should continue.<br> 
                         The submission period is followed by a voting period where everyone has one vote to help decide which submission gets added to the timeline.<br>
-                        Below is the full story so far, and remember, we started on <b>Day 0</b>, and you can submit suggestions for the days into the 
-                        future <b>(Day +1, Day +2, etc.)</b>, and/or the days into the past <b>(Day -1, Day -2, etc.)</b>.<br>
+                        Below is the full story so far, which started developing on <b>Day 0</b>, and develops in increments of one day into the past and one day into the future.
+                        You can now submit suggestions for the days into the future <b>(Day +{{maxDay}}, Day +{{maxDay+1}}, etc.)</b>, and/or the days into the past <b>(Day -{{maxDay}}, Day -{{maxDay+1}}, etc.)</b>.<br>
                         <br>
                         <a href="javascript:void(0)" class="btn btn-primary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBefore"
                         aria-controls="offcanvasBefore">Submit <b>Day -{{maxDay}}</b> Suggestion</a>
