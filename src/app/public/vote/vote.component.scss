@@ -21,3 +21,14 @@
 .titleText {
     margin-top: 50px;
 }
+
+.story-icon {
+    position: absolute;
+    top: 140px;
+    right: 30px;
+    z-index: 1;
+    
+    a {
+        font-size: x-large;
+    }
+}
