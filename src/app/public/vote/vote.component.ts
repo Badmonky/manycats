@@ -4,6 +4,7 @@ import { take } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
 import { CountdownService } from 'src/app/services/countdown.service';
 import { ConfigService } from 'src/app/services/data/config.service';
+import { Story, StoryService } from 'src/app/services/data/story.service';
 import { Submission, SubmissionService } from 'src/app/services/data/submission.service';
 import { Vote, VoteService } from 'src/app/services/data/vote.service';
 import { WalletService } from 'src/app/services/wallet.service';
@@ -14,6 +15,7 @@ import { WalletService } from 'src/app/services/wallet.service';
   styleUrls: ['./vote.component.scss']
 })
 export class VoteComponent implements OnInit {
+  stories: Story[] = [];
   storyVotes: any = {};
   myVotes: any = {};
 
@@ -29,7 +31,8 @@ export class VoteComponent implements OnInit {
     private votingService: VoteService,
     private alert: AlertService,
     private count: CountdownService,
-    private router: Router
+    private router: Router,
+    private storyService: StoryService
   ) { }
 
   get isPrepare() {
@@ -48,6 +51,22 @@ export class VoteComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.storyService.all().subscribe((stories: Story[]) => {
+      this.stories = [];
+      stories.forEach(s => {
+        s.address = this.wallet.shortAddress(s.address);
+        this.stories.push(s);
+      });
+
+      this.stories = this.stories.sort((a, b) => {
+        if (a.day === b.day) {
+          return 0;
+        }
+
+        return a.day > b.day ? 1 : -1;
+      })
+    });
+
     if (!this.wallet.connectedAccount) {
       return;
     }
@@ -157,6 +176,10 @@ export class VoteComponent implements OnInit {
     }).catch(_ => {
       console.log("NOT cool :(");
     });
+  }
+
+  closeCanvas(el: HTMLButtonElement) {
+    el.click();
   }
 
 }
