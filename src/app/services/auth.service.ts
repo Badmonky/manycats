@@ -54,7 +54,7 @@ export class AuthService {
     // let ethereum: any = window.ethereum;
     // const { ethereum } = window;
     const ethereum = (window as any).ethereum;
-    if (ethereum && ethereum.isMetaMask) {
+    if (ethereum) {
       console.log('Ethereum successfully detected!');
       this.web3Provider = ethereum;
 
