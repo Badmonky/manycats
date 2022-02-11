@@ -53,6 +53,7 @@ export class AuthService {
 
     let ethereum: any = window.ethereum;
       if (ethereum && ethereum.isMetaMask) {
+        console.log('Check = 2');
         this.web3Provider = ethereum;
 
         try {
@@ -62,6 +63,7 @@ export class AuthService {
           });
 
           this.web3Provider.on('accountsChanged', (accounts: any) => {
+            console.log('Check = 3');
             this.connectedAccount = accounts[0];
             setTimeout(() => {
               window.location.reload();
@@ -69,6 +71,7 @@ export class AuthService {
           });
 
           this.web3Provider.on('chainChanged', (chainId: any) => {
+            console.log('Check = 4');
             if (!this._checkChain(parseInt(chainId, 16))) {
               setTimeout(() => {
                 window.location.reload();
@@ -78,18 +81,20 @@ export class AuthService {
           });
 
           setTimeout(() => {
+            console.log('Check = 5');
             if (!this._checkChain(parseInt(ethereum.chainId, 16))) {
               this.connectedAccount = null;
               this.handleError("Please connect to Polygon");
             }
           }, 100);
         } catch (error) {
+          console.log('Check = 6');
           this.connectedAccount = null;
           this.handleError("Couldn't connect to MetaMask");
         }
         return;
       }
-
+      console.log('Check = 7');
       this.handleError("Couldn't connect to MetaMask");
       return;
     }
