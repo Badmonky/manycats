@@ -47,13 +47,12 @@ export class AuthService {
     return chainId === 137
   }
 
-  async connectToMetaMask() {
+  handleEthereum() {
+    console.log('Check!');
     this.connectedAccount = null;
 
-    let ethereum: any = await detectEthereumProvider();
-    if (typeof ethereum !== 'undefined') {
-      // MetaMask is installed!
-      if (ethereum) {
+    let ethereum: any = window.ethereum;
+      if (ethereum && ethereum.isMetaMask) {
         this.web3Provider = ethereum;
 
         try {
@@ -95,7 +94,18 @@ export class AuthService {
       return;
     }
 
-    this.handleError("Please install MetaMask");
+
+  connectToMetaMask() {
+    if (window.ethereum) {
+      this.handleEthereum();
+    } else {
+      window.addEventListener('ethereum#initialized', this.handleEthereum, {
+        once: true,
+      });
+      // If the event is not dispatched by the end of the timeout,
+      // the user probably doesn't have MetaMask installed.
+      setTimeout(this.handleEthereum, 3000); // 3 seconds
+    }
   }
 
   async signMessage(msg: string) {
