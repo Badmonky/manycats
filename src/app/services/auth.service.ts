@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 import { AlertService } from './alert.service';
+import detectEthereumProvider from '@metamask/detect-provider';
 
 @Injectable({
   providedIn: 'root',
@@ -46,10 +47,10 @@ export class AuthService {
     return chainId === 137
   }
 
-  connectToMetaMask() {
+  async connectToMetaMask() {
     this.connectedAccount = null;
 
-    let ethereum = (<any>window)['ethereum'];
+    let ethereum: any = await detectEthereumProvider();
     if (typeof ethereum !== 'undefined') {
       // MetaMask is installed!
       if (ethereum && ethereum.on) {
