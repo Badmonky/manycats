@@ -53,7 +53,7 @@ export class AuthService {
     let ethereum: any = await detectEthereumProvider();
     if (typeof ethereum !== 'undefined') {
       // MetaMask is installed!
-      if (ethereum && ethereum.on) {
+      if (ethereum) {
         this.web3Provider = ethereum;
 
         try {
