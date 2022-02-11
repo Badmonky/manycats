@@ -36,32 +36,37 @@
         </div>
     </div>
 
-    <div>
-        <a href="javascript:void(0)" class="btn btn-primary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasStory"
-                        aria-controls="offcanvasStory">Submit <b>Day</b> Suggestion</a>
-    </div>
+    <ng-container *ngIf="stories.length">
+        <div class="story-icon">
+            <a href="javascript:void(0)" class="btn btn-primary btn-sm" 
+            type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasStory"
+            aria-controls="offcanvasStory">
+                <i class="mdi mdi-book-open-variant"></i>
+            </a>
+        </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="offcanvas offcanvas-end" style="width: 700px;" tabindex="-1" id="offcanvasStory"
-                aria-labelledby="offcanvasStoryLabel">
-                <div class="offcanvas-header">
-                    <h5 id="offcanvasStoryLabel">The day <b>after</b></h5>
-                    <button #close_2 type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body" #canvasAfter>
-                    <div class="overflow-y scroll-down">
-                        <div class="row" *ngFor="let story of stories">
-                            <div class="col-12 mb-4">
-                                <div class="card shadow-sm bw-md border-primary text-primary">
-                                    <div class="card-body">
-                                        <div class="post-meta float-right"><a class="text-primary"
-                                                href="javascript:void(0)">Writer: <span
-                                                    class="color-red">{{story.address}}</span></a></div>
-                                        <h5 class="card-title text-primary">DAY <span
-                                                *ngIf="story.day > 0">+</span>{{story.day}}</h5>
-                                        <p class="card-text">{{story.text}}</p>
+        <div class="container">
+            <div class="row">
+                <div class="offcanvas offcanvas-end" style="width: 700px;" tabindex="-1" id="offcanvasStory"
+                    aria-labelledby="offcanvasStoryLabel">
+                    <div class="offcanvas-header">
+                        <h5 id="offcanvasStoryLabel">Storyline</h5>
+                        <button #close_2 type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body" #canvasAfter>
+                        <div class="overflow-y scroll-down">
+                            <div class="row" *ngFor="let story of stories">
+                                <div class="col-12 mb-4">
+                                    <div class="card shadow-sm bw-md border-primary text-primary">
+                                        <div class="card-body">
+                                            <div class="post-meta float-right"><a class="text-primary"
+                                                    href="javascript:void(0)">Writer: <span
+                                                        class="color-red">{{story.address}}</span></a></div>
+                                            <h5 class="card-title text-primary">DAY <span
+                                                    *ngIf="story.day > 0">+</span>{{story.day}}</h5>
+                                            <p class="card-text">{{story.text}}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +75,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </ng-container>
 
     <div class="container">
         <div class="row">

@@ -51,22 +51,6 @@ export class VoteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.storyService.all().subscribe((stories: Story[]) => {
-      this.stories = [];
-      stories.forEach(s => {
-        s.address = this.wallet.shortAddress(s.address);
-        this.stories.push(s);
-      });
-
-      this.stories = this.stories.sort((a, b) => {
-        if (a.day === b.day) {
-          return 0;
-        }
-
-        return a.day > b.day ? 1 : -1;
-      })
-    });
-
     if (!this.wallet.connectedAccount) {
       return;
     }
@@ -104,6 +88,22 @@ export class VoteComponent implements OnInit {
         if (subIds.length === 0) {
           return;
         }
+
+        this.storyService.all().subscribe((stories: Story[]) => {
+          this.stories = [];
+          stories.forEach(s => {
+            s.address = this.wallet.shortAddress(s.address);
+            this.stories.push(s);
+          });
+    
+          this.stories = this.stories.sort((a, b) => {
+            if (a.day === b.day) {
+              return 0;
+            }
+    
+            return a.day > b.day ? 1 : -1;
+          })
+        });
 
         this.votingService.all([
           ["submission_id", "in", subIds]
