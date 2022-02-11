@@ -107,13 +107,13 @@ export class AuthService {
     if ((window as any).ethereum) {
       this.handleEthereum();
     } else {
-      window.addEventListener('ethereum#initialized', this.handleEthereum, {
+      window.addEventListener('ethereum#initialized', this.handleEthereum.bind(this), {
         once: true,
       });
       // If the event is not dispatched by the end of the timeout,
       // the user probably doesn't have MetaMask installed.
       console.log('timeout');
-      setTimeout(this.handleEthereum, 3000); // 3 seconds
+      setTimeout(this.handleEthereum.bind(this), 3000); // 3 seconds
     }
   }
 
