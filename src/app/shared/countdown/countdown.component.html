@@ -1,4 +1,4 @@
-<div class="abs" *ngIf="show">
+<div class="abs" [style]="!show ? 'display: none' : ''">
     <div class="bg">
         <div class="countdown" [style.width.px]="maxWidth">
             <div class="period">

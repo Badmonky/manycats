@@ -7,7 +7,7 @@ import { CountdownService } from 'src/app/services/countdown.service';
   styleUrls: ['./countdown.component.scss']
 })
 export class CountdownComponent implements OnInit, AfterViewInit {
-  @ViewChild("span") span: ElementRef;
+  @ViewChild("span", { static: true }) span: ElementRef;
   @ViewChild("c1") c1: ElementRef;
   @ViewChild("c2") c2: ElementRef;
   @ViewChild("c3") c3: ElementRef;
