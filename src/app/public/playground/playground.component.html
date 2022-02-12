@@ -45,20 +45,20 @@
         <div class="row">
             <div class="col-12">
                 <ng-container>
-                    <div #container1 class="offcanvas offcanvas-start" style="width: 700px;" tabindex="-1" id="offcanvasBefore"
+                    <div class="offcanvas offcanvas-start" style="width: 700px;" tabindex="-1" id="offcanvasBefore"
                         aria-labelledby="offcanvasBeforeLabel">
-                        <div #header1 class="offcanvas-header">
+                        <div class="offcanvas-header">
                             <h5 id="offcanvasBeforeLabel">The day <b>before</b></h5>
                             <button #close_1 type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
                         </div>
-                        <div class="offcanvas-body">
+                        <div #container1 class="offcanvas-body">
                             <div #small1 class="h-small">
                                 <app-submit [title]="'How would you precede?'" [day]="-maxDay"
                                     (onSubmit)="closeCanvas(close_1)">
                                 </app-submit>
                             </div>
-                            <div class="h-big overflow-y pin-bottom" [style.height.px]="container1.offsetHeight - header1.offsetHeight - small1.offsetHeight -30">
+                            <div class="h-big overflow-y pin-bottom" [style.height.px]="container1.offsetHeight - small1.offsetHeight -30">
                                 <div class="row" *ngFor="let story of stories" [ngClass]="{'day-0' : story.day === 0}">
                                     <div class="col-12 mb-4">
                                         <div class="card shadow-sm bw-md border-primary text-primary">
@@ -78,15 +78,15 @@
                     </div>
 
 
-                    <div #container2 class="offcanvas offcanvas-end" style="width: 700px;" tabindex="-1" id="offcanvasAfter"
+                    <div class="offcanvas offcanvas-end" style="width: 700px;" tabindex="-1" id="offcanvasAfter"
                         aria-labelledby="offcanvasAfterLabel">
-                        <div #header2 class="offcanvas-header">
+                        <div class="offcanvas-header">
                             <h5 id="offcanvasAfterLabel">The day <b>after</b></h5>
                             <button #close_2 type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
                         </div>
-                        <div class="offcanvas-body" #canvasAfter>
-                            <div class="h-big overflow-y scroll-down" [style.height.px]="container2.offsetHeight - header2.offsetHeight - small2.offsetHeight -45">
+                        <div #container2 class="offcanvas-body" #canvasAfter>
+                            <div class="h-big overflow-y scroll-down" [style.height.px]="container2.offsetHeight - small2.offsetHeight -45">
                                 <div class="row" *ngFor="let story of storiesReverse" [ngClass]="{'day-0' : story.day === 0}">
                                     <div class="col-12 mb-4">
                                         <div class="card shadow-sm bw-md border-primary text-primary">
