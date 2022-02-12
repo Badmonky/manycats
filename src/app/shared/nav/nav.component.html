@@ -1,24 +1,25 @@
 <div #header class="header-top-area" [ngClass]="{'bg-dark': isDark, 'bg-light': !isDark}">
-    <div *ngIf="isConnected" class="wallet-string"><span>Wallet: </span><span class="color-red">{{account}}</span></div>
+    <div *ngIf="isConnected" class="wallet-string"><span class="wallet">Wallet: </span><span class="account color-red">{{account}}</span></div>
     <nav class="navbar navbar-expand-lg navbar-light" [ngClass]="{'bg-dark m-1': isDark, 'bg-light m-4': !isDark}">
         <div class="container">
             <div class="logo">
                 <a href="/">
                     Time Writer<div *ngIf="maxDay !== undefined">DAY {{maxDay}}</div>
                 </a>
+                <app-countdown *ngIf="small"></app-countdown>
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            <button #navbutton id="hamburger" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" (click)="navigate('scribble', true)">Scribble <i class="mdi mdi-circle-small"></i></a>
+                        <a class="nav-link" href="javascript:void(0)" (click)="closeMenu(navbutton); navigate('scribble', true)">Scribble <i class="mdi mdi-circle-small"></i></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://badmonky.notion.site/Time-Writer-Wiki-5afb9765d4da4b22b03be3c7858985e1" target="_blank" 
-                        title="TimeWriter Knowledgebase">What is it?<i class="mdi mdi-circle-small"></i></a>
+                        title="TimeWriter Knowledgebase" (click)="closeMenu(navbutton)">What is it?<i class="mdi mdi-circle-small"></i></a>
                         <!-- <a class="nav-link" href="javascript:void(0)" (click)="navigate('home', true, false)">What is it? <i class="mdi mdi-circle-small"></i></a> -->
                     </li>
                     <!-- <li class="nav-item">

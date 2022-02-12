@@ -15,6 +15,10 @@ export class AppComponent implements OnInit {
     private auth: AuthService
   ) { }
 
+  get small() {
+    return window.innerWidth < 752;
+  }
+
   ngOnInit(): void {
     if (sessionStorage.getItem("eth_conn")) {
       this.auth.connectToMetaMask();

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { CountdownService } from 'src/app/services/countdown.service';
 
 @Component({
@@ -36,6 +36,10 @@ export class CountdownComponent implements OnInit, AfterViewInit {
   }
   get containerWidth() {
     return this._containerWidth;
+  }
+
+  get small() {
+    return window.innerWidth < 752;
   }
 
   constructor(

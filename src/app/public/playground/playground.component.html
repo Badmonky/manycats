@@ -59,7 +59,7 @@
                                 </app-submit>
                             </div>
                             <div class="h-big overflow-y pin-bottom">
-                                <div class="row" *ngFor="let story of stories">
+                                <div class="row" *ngFor="let story of stories" [ngClass]="{'day-0' : story.day === 0}">
                                     <div class="col-12 mb-4">
                                         <div class="card shadow-sm bw-md border-primary text-primary">
                                             <div class="card-body">
@@ -87,7 +87,7 @@
                         </div>
                         <div class="offcanvas-body" #canvasAfter>
                             <div class="h-big overflow-y scroll-down">
-                                <div class="row" *ngFor="let story of storiesReverse">
+                                <div class="row" *ngFor="let story of storiesReverse" [ngClass]="{'day-0' : story.day === 0}">
                                     <div class="col-12 mb-4">
                                         <div class="card shadow-sm bw-md border-primary text-primary">
                                             <div class="card-body">
@@ -109,7 +109,7 @@
                         </div>
                     </div>
 
-                    <div class="row" *ngFor="let story of stories">
+                    <div class="row" *ngFor="let story of stories" [ngClass]="{'day-0' : story.day === 0}">
                         <!-- Timeline item 1 content-->
                         <div class="col-12 mb-4">
                             <div class="card shadow-sm bw-md border-primary text-primary">

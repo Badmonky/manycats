@@ -102,7 +102,9 @@ export class VoteComponent implements OnInit {
             }
     
             return a.day > b.day ? 1 : -1;
-          })
+          });
+
+          console.log("Stories = ", this.stories);
         });
 
         this.votingService.all([
