@@ -52,7 +52,7 @@
                             <button #close_1 type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
                         </div>
-                        <div #container1 class="offcanvas-body">
+                        <div #container1 class="offcanvas-body" (resize)="onResize(null)">
                             <div #small1 class="h-small">
                                 <app-submit [title]="'How would you precede?'" [day]="-maxDay"
                                     (onSubmit)="closeCanvas(close_1)">
@@ -85,7 +85,7 @@
                             <button #close_2 type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
                         </div>
-                        <div #container2 class="offcanvas-body" #canvasAfter>
+                        <div #container2 class="offcanvas-body" #canvasAfter (resize)="onResize(null)">
                             <div class="h-big overflow-y scroll-down" [style.height.px]="height2">
                                 <div class="row" *ngFor="let story of storiesReverse" [ngClass]="{'day-0' : story.day === 0}">
                                     <div class="col-12 mb-4">
