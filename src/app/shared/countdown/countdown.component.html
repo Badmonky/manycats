@@ -1,4 +1,5 @@
-<div class="abs" [style]="!show ? 'display: none' : ''">
+
+<div class="abs" [style]="!show || small ? 'visibility: hidden' : ''">
     <div class="bg">
         <div class="countdown" [style.width.px]="maxWidth">
             <div class="period">
@@ -15,4 +16,8 @@
             </div>
         </div>
     </div>
+</div>
+
+<div *ngIf="small">
+    <span class="color-red">{{period}}</span>&nbsp;<span>-</span>&nbsp;<span>{{hour}}:{{min}}:{{sec}}</span>
 </div>

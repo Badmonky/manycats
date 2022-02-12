@@ -4,6 +4,8 @@ import { Subscription, take } from 'rxjs';
 import { ConfigService } from 'src/app/services/data/config.service';
 import { WalletService } from 'src/app/services/wallet.service';
 
+declare var $: any;
+
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -28,6 +30,10 @@ export class NavComponent implements OnInit, OnDestroy, AfterViewInit {
     private cdref: ChangeDetectorRef,
     private config: ConfigService
   ) { }
+
+  get small() {
+    return window.innerWidth < 752;
+  }
 
   ngOnInit(): void {
     this.config.maxDay$.subscribe(day => {
@@ -90,5 +96,13 @@ export class NavComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     this.wallet.connect();
+  }
+
+  closeMenu(el: HTMLButtonElement) {
+    const isVisible = $("#hamburger").is(":visible");
+    if(!isVisible) {
+      return;
+    }
+    el.click();
   }
 }
