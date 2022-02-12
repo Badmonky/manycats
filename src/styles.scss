@@ -1163,8 +1163,6 @@ ul {
   }
 
 .card-body {
-    border: 1px solid #000;
-
     .day-0 & {
         background-color: #000;
         &, p, a {
@@ -1194,5 +1192,5 @@ ul {
 }
 
 .card {
-    background-color: none !important;
+    border-color: #000 !important;
 }

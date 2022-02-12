@@ -41,7 +41,7 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
       this._redirect = true;
       setTimeout(() => {
         this.goToVote();
-      }, 100);
+      }, 500);
     }
 
     return this.count.isSubmission;

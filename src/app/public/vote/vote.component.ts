@@ -45,7 +45,7 @@ export class VoteComponent implements OnInit {
       this._redirect = true;
       setTimeout(() => {
         this.router.navigate(["/p/scribble"]);
-      }, 100);
+      }, 500);
     }
     return this.count.isVoting;
   }
@@ -103,8 +103,6 @@ export class VoteComponent implements OnInit {
     
             return a.day > b.day ? 1 : -1;
           });
-
-          console.log("Stories = ", this.stories);
         });
 
         this.votingService.all([
