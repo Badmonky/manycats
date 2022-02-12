@@ -17,6 +17,8 @@ export class PlaygroundComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild("canvasAfter") canvasAfter: ElementRef;
   @ViewChild("container1") container1: ElementRef;
   @ViewChild("container2") container2: ElementRef;
+  @ViewChild("header1") header1: ElementRef;
+  @ViewChild("header2") header2: ElementRef;
   @ViewChild("small1") small1: ElementRef;
   @ViewChild("small2") small2: ElementRef;
 
@@ -73,8 +75,8 @@ export class PlaygroundComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    this._height1 = this.container1.nativeElement.offsetHeight - this.small1.nativeElement.offsetHeight -30;
-    this._height2 = this.container2.nativeElement.offsetHeight - this.small2.nativeElement.offsetHeight -45;
+    this._height1 = this.container1.nativeElement.offsetHeight - this.header1.nativeElement.offsetHeight - this.small1.nativeElement.offsetHeight -45;
+    this._height2 = this.container2.nativeElement.offsetHeight - this.header2.nativeElement.offsetHeight - this.small2.nativeElement.offsetHeight -60;
     setTimeout(() => {
       this.cdref.detectChanges()
     }, 50)

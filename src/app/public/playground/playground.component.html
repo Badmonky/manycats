@@ -45,14 +45,14 @@
         <div class="row">
             <div class="col-12">
                 <ng-container>
-                    <div class="offcanvas offcanvas-start" style="width: 700px;" tabindex="-1" id="offcanvasBefore"
+                    <div #container1 class="offcanvas offcanvas-start" style="width: 700px;" tabindex="-1" id="offcanvasBefore"
                         aria-labelledby="offcanvasBeforeLabel">
-                        <div class="offcanvas-header">
+                        <div #header1 class="offcanvas-header">
                             <h5 id="offcanvasBeforeLabel">The day <b>before</b> {{container1.offsetHeight}}</h5>
                             <button #close_1 type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
                         </div>
-                        <div #container1 class="offcanvas-body" (resize)="onResize(null)">
+                        <div class="offcanvas-body" (resize)="onResize(null)">
                             <div #small1 class="h-small">
                                 <app-submit [title]="'How would you precede?'" [day]="-maxDay"
                                     (onSubmit)="closeCanvas(close_1)">
@@ -78,14 +78,14 @@
                     </div>
 
 
-                    <div class="offcanvas offcanvas-end" style="width: 700px;" tabindex="-1" id="offcanvasAfter"
+                    <div #container2 class="offcanvas offcanvas-end" style="width: 700px;" tabindex="-1" id="offcanvasAfter"
                         aria-labelledby="offcanvasAfterLabel">
-                        <div class="offcanvas-header">
+                        <div #header2 class="offcanvas-header">
                             <h5 id="offcanvasAfterLabel">The day <b>after</b> {{container2.offsetHeight}}</h5>
                             <button #close_2 type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
                         </div>
-                        <div #container2 class="offcanvas-body" #canvasAfter (resize)="onResize(null)">
+                        <div class="offcanvas-body" #canvasAfter (resize)="onResize(null)">
                             <div class="h-big overflow-y scroll-down" [style.height.px]="height2">
                                 <div class="row" *ngFor="let story of storiesReverse" [ngClass]="{'day-0' : story.day === 0}">
                                     <div class="col-12 mb-4">

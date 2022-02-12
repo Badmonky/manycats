@@ -75,12 +75,12 @@ export class AuthService {
           }
         });
 
-        setTimeout(() => {
+        /*setTimeout(() => {
           if (!this._checkChain(parseInt(ethereum.chainId, 16))) {
             this.connectedAccount = null;
             this.handleError("Please connect to Polygon");
           }
-        }, 500);
+        }, 100);*/
       } catch (error) {
         this.connectedAccount = null;
         this.handleError("Couldn't connect to MetaMask");
