@@ -1162,6 +1162,11 @@ ul {
     background: #000;
   }
 
+.offcanvas-header {
+    box-shadow: 0 2px 15px #5a5b5f54 !important;
+    margin-bottom: 20px;
+}
+
 .card-body {
     .day-0 & {
         background-color: #000;

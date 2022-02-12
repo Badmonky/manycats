@@ -25,6 +25,12 @@ p {
 }
 
 .h-big {
+    border: 1px solid #000;
+
+    padding-top: 15px;
+    padding-right: 10px;
+    padding-left: 7px;
+
     & .row {
         margin-left: 0;
         margin-right: 0;
