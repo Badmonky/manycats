@@ -18,6 +18,6 @@
     </div>
 </div>
 
-<div *ngIf="show || small" class="small">
+<div *ngIf="show && small" class="small">
     <span class="color-red">{{period}}</span>&nbsp;<span>-</span>&nbsp;<span>{{hour}}:{{min}}:{{sec}}</span>
 </div>
