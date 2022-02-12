@@ -58,7 +58,7 @@
                                     (onSubmit)="closeCanvas(close_1)">
                                 </app-submit>
                             </div>
-                            <div class="h-big overflow-y pin-bottom" [style.height.px]="container1.offsetHeight - small1.offsetHeight -30">
+                            <div class="h-big overflow-y pin-bottom" [style.height.px]="height1">
                                 <div class="row" *ngFor="let story of stories" [ngClass]="{'day-0' : story.day === 0}">
                                     <div class="col-12 mb-4">
                                         <div class="card shadow-sm bw-md border-primary text-primary">
@@ -86,7 +86,7 @@
                                 aria-label="Close"></button>
                         </div>
                         <div #container2 class="offcanvas-body" #canvasAfter>
-                            <div class="h-big overflow-y scroll-down" [style.height.px]="container2.offsetHeight - small2.offsetHeight -45">
+                            <div class="h-big overflow-y scroll-down" [style.height.px]="height2">
                                 <div class="row" *ngFor="let story of storiesReverse" [ngClass]="{'day-0' : story.day === 0}">
                                     <div class="col-12 mb-4">
                                         <div class="card shadow-sm bw-md border-primary text-primary">

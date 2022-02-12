@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription, take } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
@@ -13,8 +13,12 @@ import { WalletService } from 'src/app/services/wallet.service';
   templateUrl: './playground.component.html',
   styleUrls: ['./playground.component.scss']
 })
-export class PlaygroundComponent implements OnInit, OnDestroy {
+export class PlaygroundComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild("canvasAfter") canvasAfter: ElementRef;
+  @ViewChild("container1") container1: ElementRef;
+  @ViewChild("container2") container2: ElementRef;
+  @ViewChild("small1") small1: ElementRef;
+  @ViewChild("small2") small2: ElementRef;
 
   maxDay: number = 0;
 
@@ -28,7 +32,8 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
     private wallet: WalletService,
     private count: CountdownService,
     private router: Router,
-    private alert: AlertService
+    private alert: AlertService,
+    private cdref: ChangeDetectorRef
   ) { }
 
   get isPrepare() {
@@ -47,6 +52,16 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
     return this.count.isSubmission;
   }
 
+  _height1 = 0;
+  get height1() {
+    return this._height1;
+  }
+
+  _height2 = 0;
+  get height2() {
+    return this._height2;
+  }
+
   get countdown() {
     return `${this.count.hour} hours ${this.count.minute} minutes ${this.count.second} seconds`;
   }
@@ -54,6 +69,15 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
   get storiesReverse() {
     const s = [...this.stories];
     return s.reverse();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this._height1 = this.container1.nativeElement.offsetHeight - this.small1.nativeElement.offsetHeight -30;
+    this._height2 = this.container2.nativeElement.offsetHeight - this.small2.nativeElement.offsetHeight -45;
+    setTimeout(() => {
+      this.cdref.detectChanges()
+    }, 50)
   }
 
   connect() {
@@ -101,6 +125,12 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
         })
       });
     });
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.onResize(null);
+    }, 500);
   }
 
   ngOnDestroy(): void {
