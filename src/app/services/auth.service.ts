@@ -80,7 +80,7 @@ export class AuthService {
             this.connectedAccount = null;
             this.handleError("Please connect to Polygon");
           }
-        }, 100);
+        }, 500);
       } catch (error) {
         this.connectedAccount = null;
         this.handleError("Couldn't connect to MetaMask");
