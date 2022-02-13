@@ -1,0 +1,53 @@
+p {
+    .btn {
+        // line-height: 10px;
+        margin: 15px;
+    }
+}
+
+.titleText {
+    margin-top: 50px;
+}
+
+.overflow-y {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 5px 0 5px 0;
+}
+
+.scroll-down {
+    display:flex; 
+    flex-direction: column-reverse;
+}
+
+.h-small {
+    height: auto;
+}
+
+.h-big {
+    border: 1px solid #000;
+
+    padding-top: 15px;
+    padding-right: 10px;
+    padding-left: 7px;
+
+    & .row {
+        margin-left: 0;
+        margin-right: 0;
+
+        .col-12 {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    &.pin-bottom {
+        bottom: 15px;
+    }
+}
+
+.pin-bottom {
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 32px);
+}

@@ -1,6 +1,6 @@
 <!-- Menu Section End -->
 <!-- Home Section Start -->
-<section #home class="home-section-background">
+<section #home>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -17,18 +17,39 @@
     </div>
 </section>
 
-<section #about class="section-space-padding pattern-bg">
+<section #about>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cta">
+                    <a href="javascript:void(0)" class="btn btn-primary btn-sm" type="button" (click)="navigate('scribble', true)">
+                        <i class="mdi mdi-circle-small"></i> Scribble Now <i class="mdi mdi-circle-small"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section #about>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="about-us">
-                    <h1>What is <span>TimeWriter?</span></h1>
-
-                    <h2>A social experiment in collaborative writing of an infinite story expanding forever into the
-                        past and the future.</h2>
+                    <h2>What is <span class="color-red">TimeWriter?</span></h2>
+                    <h2>A social experiment in collaborative writing of an infinite story. Powered by NFTs, Governed by a DAO</h2>
+                    <h4>
+                        ♾️ Writing on chain ♾️<br>
+                        📜 Submit story suggestions 📜<br>
+                        <!-- 💰 Bid in silent auction to enter submission💰<br> -->
+                        🗳️ Vote on story submissions 🗳️ <br>
+                        🥳 Win NFTs and become a DAO member 🥳<br>
+                        <!-- 🏦 Proceeds distributed to DAO members & the treasury 🏦<br> -->
+                    </h4>
+                    <br>
+                    <h5>Timewriter Season Zero (Beta) is currently ongoing. <br> Want to participate?</h5>
                     <div class="more">
-                        <a href="https://badmonky.notion.site/Time-Writer-Wiki-5afb9765d4da4b22b03be3c7858985e1"
-                            target="_blank" title="TimeWriter Knowledgebase">Learn More...</a>
+                        <a href="javascript:void(0)" class="btn btn-primary btn-sm" type="button" (click)="navigate('scribble', true)">
+                            <i class="mdi mdi-circle-small"></i> Scribble Now <i class="mdi mdi-circle-small"></i></a>
                     </div>
                 </div>
             </div>

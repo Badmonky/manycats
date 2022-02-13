@@ -1,0 +1,9 @@
+<div class="row mt-3" *ngFor="let alert of alerts"
+    [style]="'transform: rotate('+(alert.rot > 0 ? '' : '-')+'1deg) translate('+(alert.rot > 0 ? '' : '-')+'5px)'">
+    <div class="col-12" [class]="alert.type">
+        {{alert.text}}
+        <ng-container *ngIf="alert.text === 'Please connect to your Metamask'">
+            <i class="mdi mdi-arrow-right-thin"></i>&nbsp;&nbsp;<i class="mdi mdi-wallet-plus"></i>
+        </ng-container>
+    </div>
+</div>

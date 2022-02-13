@@ -1,0 +1,131 @@
+<ng-container *ngIf="isPrepare">
+    <app-prepare></app-prepare>
+</ng-container>
+<ng-container *ngIf="canSubmit">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mx-auto">
+                <div class="mt-6 mb-5">
+                    <h1 class="font-weight-bold titleText">This is our scribblebox,</h1>
+                    <h5>Our infinite story playground, where you can submit your own ideas for the timewriter story timeline.</h5>
+                    <br><hr class="rounded">                    
+                    <p *ngIf="maxDay === 0">
+                        <br><h3>Welcome to <b>Day 0</b>. Today is a special day!</h3><br/>
+                        For the next <b>{{countdown}}</b> you can submit your idea about how the timewriter story should begin.<br>
+                        Once this first submission period concludes we will vote on all <b>Day 0</b> submissions. <br>
+                        The <b>Day 0</b> submission which receives the most votes will start the timeline and will influence how all of the subsequent days unfold. <br>
+                        Try to create an intriguing introduction that other writers will want to build on.<br> <br>
+                    </p>
+                    <p *ngIf="maxDay !== 0" class="mb-0">
+                        <br><h3>Welcome to <b>Day {{maxDay}}</b></h3>
+                        For the next <b>{{countdown}}</b> you can submit your ideas about how the timewriter story should continue.<br> 
+                        The submission period is followed by a voting period where everyone has one vote to help decide which submission gets added to the timeline.<br>
+                        Below is the full story so far, which started developing on <b>Day 0</b>, and develops in increments of one day into the past and one day into the future.
+                        You can now submit suggestions for the days into the future <b>(Day +{{maxDay}}, Day +{{maxDay+1}}, etc.)</b>, and/or the days into the past <b>(Day -{{maxDay}}, Day -{{maxDay+1}}, etc.)</b>.<br>
+                        <br>
+                        <a href="javascript:void(0)" class="btn btn-primary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBefore"
+                        aria-controls="offcanvasBefore">Submit <b>Day -{{maxDay}}</b> Suggestion</a>
+                        <a (click)="scrollDown()" href="javascript:void(0)" class="btn btn-primary btn-sm" type="button"
+                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasAfter" aria-controls="offcanvasAfter">Submit <b>Day +{{maxDay}}</b> Suggestion</a>
+                </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" *ngIf="maxDay === 0">
+        <div class="row">
+            <div class="col-12">
+                <app-submit [title]="'How would you start our timeline?'" [day]="maxDay"></app-submit>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" *ngIf="maxDay > 0">
+        <div class="row">
+            <div class="col-12">
+                <ng-container>
+                    <div #container1 class="offcanvas offcanvas-start" style="width: 700px;" tabindex="-1" id="offcanvasBefore"
+                        aria-labelledby="offcanvasBeforeLabel">
+                        <div #header1 class="offcanvas-header">
+                            <h5 id="offcanvasBeforeLabel">The day <b>before</b></h5>
+                            <button #close_1 type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body" (resize)="onResize(null)">
+                            <div #small1 class="h-small">
+                                <app-submit [title]="'How would you precede?'" [day]="-maxDay"
+                                    (onSubmit)="closeCanvas(close_1)">
+                                </app-submit>
+                            </div>
+                            <div class="h-big overflow-y pin-bottom" [style.height.px]="height1">
+                                <div class="row" *ngFor="let story of stories" [ngClass]="{'day-0' : story.day === 0}">
+                                    <div class="col-12 mb-4">
+                                        <div class="card shadow-sm bw-md border-primary text-primary">
+                                            <div class="card-body">
+                                                <div class="post-meta float-right"><a class="text-primary"
+                                                        href="javascript:void(0)">Writer: <span
+                                                            class="color-red">{{story.address}}</span></a></div>
+                                                <h5 class="card-title text-primary">DAY <span
+                                                        *ngIf="story.day > 0">+</span>{{story.day}}</h5>
+                                                <p class="card-text">{{story.text}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div #container2 class="offcanvas offcanvas-end" style="width: 700px;" tabindex="-1" id="offcanvasAfter"
+                        aria-labelledby="offcanvasAfterLabel">
+                        <div #header2 class="offcanvas-header">
+                            <h5 id="offcanvasAfterLabel">The day <b>after</b></h5>
+                            <button #close_2 type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body" #canvasAfter (resize)="onResize(null)">
+                            <div class="h-big overflow-y scroll-down" [style.height.px]="height2">
+                                <div class="row" *ngFor="let story of storiesReverse" [ngClass]="{'day-0' : story.day === 0}">
+                                    <div class="col-12 mb-4">
+                                        <div class="card shadow-sm bw-md border-primary text-primary">
+                                            <div class="card-body">
+                                                <div class="post-meta float-right"><a class="text-primary"
+                                                        href="javascript:void(0)">Writer: <span
+                                                            class="color-red">{{story.address}}</span></a></div>
+                                                <h5 class="card-title text-primary">DAY <span
+                                                        *ngIf="story.day > 0">+</span>{{story.day}}</h5>
+                                                <p class="card-text">{{story.text}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div #small2 class="h-small pin-bottom">
+                                <app-submit [title]="'How would you continue?'" [day]="maxDay"
+                                    (onSubmit)="closeCanvas(close_2)"></app-submit>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngFor="let story of stories" [ngClass]="{'day-0' : story.day === 0}">
+                        <!-- Timeline item 1 content-->
+                        <div class="col-12 mb-4">
+                            <div class="card shadow-sm bw-md border-primary text-primary">
+                                <div class="card-body">
+                                    <div class="post-meta float-right"><a class="text-primary"
+                                            href="javascript:void(0)">
+                                            Writer: <span class="color-red">{{story.address}}</span></a></div>
+                                    <h5 class="card-title color-red">DAY <span
+                                            *ngIf="story.day > 0">+</span>{{story.day}}</h5>
+                                    <p class="card-text">{{story.text}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</ng-container>

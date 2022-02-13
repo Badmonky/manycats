@@ -1,5 +1,17 @@
-<app-nav></app-nav>
+<div class="alert">
+    <app-alert></app-alert>
+</div>
 
-<router-outlet></router-outlet>
+<div class="container-liquid">
+    <app-nav (getHeight)="setNavHeight($event)"></app-nav>
+</div>
 
-<app-footer></app-footer>
+<div class="container-liquid"
+    [style]="'min-height: calc(100% - 171px - '+navHeight+'px - 50px); margin-top:'+navHeight+'px'">
+    <app-countdown *ngIf="!small"></app-countdown>
+    <router-outlet></router-outlet>
+</div>
+
+<div class="container-liquid" style="margin-top: 50px">
+    <app-footer></app-footer>
+</div>
