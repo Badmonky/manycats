@@ -84,11 +84,13 @@ export class VoteComponent implements OnInit {
             this.future.push(d);
           }
         });
-
+        
+        
+        
         if (subIds.length === 0) {
           return;
         }
-
+        
         this.storyService.all().subscribe((stories: Story[]) => {
           this.stories = [];
           stories.forEach(s => {

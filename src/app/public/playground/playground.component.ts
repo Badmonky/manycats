@@ -75,11 +75,17 @@ export class PlaygroundComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
+    if(!(this.container1 && this.container2
+    && this.header1 && this.header2
+    && this.small1 && this.small2)) {
+      console.log("LOL");
+      return;
+    }
+
     this._height1 = this.container1.nativeElement.offsetHeight - this.header1.nativeElement.offsetHeight - this.small1.nativeElement.offsetHeight -45;
     this._height2 = this.container2.nativeElement.offsetHeight - this.header2.nativeElement.offsetHeight - this.small2.nativeElement.offsetHeight -60;
-    setTimeout(() => {
-      this.cdref.detectChanges()
-    }, 50)
+    
+    this.cdref.detectChanges()
   }
 
   connect() {

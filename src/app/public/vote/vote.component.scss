@@ -32,3 +32,16 @@
         font-size: x-large;
     }
 }
+
+#offcanvasStory {
+    padding-left: 0;
+    padding-right: 0;
+
+    .offcanvas-body {
+        & {
+            padding-top: 15px;
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+        }
+    }
+}
