@@ -78,7 +78,6 @@ export class PlaygroundComponent implements OnInit, OnDestroy, AfterViewInit {
     if(!(this.container1 && this.container2
     && this.header1 && this.header2
     && this.small1 && this.small2)) {
-      console.log("LOL");
       return;
     }
 

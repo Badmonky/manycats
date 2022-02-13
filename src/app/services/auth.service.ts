@@ -50,7 +50,6 @@ export class AuthService {
     this.connectedAccount = null;
     const ethereum = (window as any).ethereum;
     if (ethereum) {
-      console.log('Ethereum successfully detected!');
       this.web3Provider = ethereum;
 
       try {

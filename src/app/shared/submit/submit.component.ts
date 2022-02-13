@@ -83,7 +83,6 @@ export class SubmitComponent implements OnInit, OnDestroy {
         this.alert.error("Your submission was  not successful!");
       });
     }).catch(_ => {
-      console.log("NOT cool :(");
     });
   }
 }

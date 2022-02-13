@@ -96,7 +96,6 @@ export class CountdownComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log("Date = ", this.count.date);
   }
 
 }

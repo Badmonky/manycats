@@ -90,7 +90,7 @@ export class VoteComponent implements OnInit {
         if (subIds.length === 0) {
           return;
         }
-        
+
         this.storyService.all().subscribe((stories: Story[]) => {
           this.stories = [];
           stories.forEach(s => {
@@ -176,7 +176,6 @@ export class VoteComponent implements OnInit {
         this.alert.error("Your vote was not successful!");
       });
     }).catch(_ => {
-      console.log("NOT cool :(");
     });
   }
 
