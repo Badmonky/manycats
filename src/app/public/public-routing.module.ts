@@ -4,7 +4,6 @@ import { MetamaskGuard } from '../guards/metamask.guard';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { NftDropComponent } from './nft-drop/nft-drop.component';
 import { PlaygroundComponent } from './playground/playground.component';
-import { VoteComponent } from './vote/vote.component';
 
 const routes: Routes = [
   {
@@ -25,11 +24,6 @@ const routes: Routes = [
     component: PlaygroundComponent,
     canActivate: [MetamaskGuard]
   },
-  {
-    path: 'vote',
-    component: VoteComponent,
-    canActivate: [MetamaskGuard]
-  }
 ];
 
 @NgModule({

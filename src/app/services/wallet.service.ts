@@ -6,16 +6,13 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class WalletService {
-  onConnect$: ReplaySubject<boolean> = new ReplaySubject(1);
   onAccount$: ReplaySubject<string | null> = new ReplaySubject(1);
-
   connectedAccount: string | null = null;
 
   constructor(
     private auth: AuthService
   ) {
     this.auth.onAccountChange$.subscribe((account: string | null) => {
-      this.onConnect$.next(!!account);
       this.onAccount$.next(account);
 
       this.connectedAccount = account;

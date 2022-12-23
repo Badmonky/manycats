@@ -33,8 +33,6 @@ export class PlaygroundComponent implements OnInit, OnDestroy, AfterViewInit {
     private storyService: StoryService,
     private wallet: WalletService,
     private count: CountdownService,
-    private router: Router,
-    private alert: AlertService,
     private cdref: ChangeDetectorRef
   ) { }
 
@@ -44,13 +42,6 @@ export class PlaygroundComponent implements OnInit, OnDestroy, AfterViewInit {
 
   _redirect: boolean = false
   get canSubmit() {
-    if (!this._redirect && this.count.isVoting) {
-      this._redirect = true;
-      setTimeout(() => {
-        this.goToVote();
-      }, 500);
-    }
-
     return this.count.isSubmission;
   }
 
@@ -91,14 +82,6 @@ export class PlaygroundComponent implements OnInit, OnDestroy, AfterViewInit {
     this.auth.connectToMetaMask();
   }
 
-  goToVote() {
-    if (!this.count.isVoting) {
-      this.alert.warning("Voting is currently disabled!");
-      return;
-    }
-    this.router.navigate(["/p/vote"]);
-  }
-
   scrollDown() {
     setTimeout(() => {
       this.canvasAfter.nativeElement.scrollTo(0, document.body.scrollHeight);
@@ -106,11 +89,6 @@ export class PlaygroundComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    if (this.count.isVoting) {
-      this.goToVote();
-      return;
-    }
-
     this.config.maxDay$.pipe(
       take(1)
     ).subscribe(day => {

@@ -41,18 +41,15 @@ export class NavComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
     this.subs.push(
-      this.wallet.onConnect$.subscribe(isConnected => {
-        this.isConnected = isConnected;
-      })
-    );
-
-    this.subs.push(
       this.wallet.onAccount$.subscribe((account: string | null) => {
         if (!account) {
           this.account = null;
+          this.isConnected = false;
           return;
         }
+        
         this.account = this.wallet.shortAddress(account);
+        this.isConnected = true;
         this.cdref.detectChanges();
       })
     );

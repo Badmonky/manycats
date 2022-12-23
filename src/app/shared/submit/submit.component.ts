@@ -51,13 +51,6 @@ export class SubmitComponent implements OnInit, OnDestroy {
     this.subs.forEach(s => s.unsubscribe());
   }
 
-  goToVote() {
-    this.onSubmit.emit()
-    setTimeout(() => {
-      this.router.navigate(["/p/vote"]);
-    }, 300);
-  }
-
   submit() {
     if (!((this.day || this.day === 0) && this.wallet.connectedAccount && this._text)) {
       return;
@@ -75,13 +68,14 @@ export class SubmitComponent implements OnInit, OnDestroy {
     }
 
     this.wallet.sign(this._text).then(_ => {
-      this.submissionService.create(submission).then(_ => {
+      this.submissionService.create(submission).subscribe(_ => {
         this._text = "";
         this.alert.success("Your submission was successful!");
         this.onSubmit.emit();
-      }).catch(_ => {
-        this.alert.error("Your submission was  not successful!");
-      });
+      },
+        _ => {
+          this.alert.error("Your submission was  not successful!");
+        });
     }).catch(_ => {
     });
   }

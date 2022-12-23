@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import Web3 from "web3";
 import Web3Modal from "web3modal";
-import WalletConnectProvider from "@walletconnect/web3-provider";
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -62,6 +61,8 @@ export class AuthService {
   }
 
   signMessage(msg: string) {
-
+    return new Promise((resolve, reject) => {
+      resolve(1);
+    });
   }
 }

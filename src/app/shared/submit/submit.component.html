@@ -4,10 +4,3 @@
         <textarea style="width: 100%" rows="5" [(ngModel)]="text"></textarea>
     </div>
 </div>
-
-<div class="row" *ngIf="isVoting">
-    <div class="col-12">
-        <h6>Submission of new entries is currently disabled!</h6> <button class="btn btn-primary btn-sm send"
-            (click)="goToVote()">Vote</button>
-    </div>
-</div>

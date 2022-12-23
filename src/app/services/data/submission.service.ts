@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { DbService } from './db.service';
+import { Observable, of } from 'rxjs';
 
 export interface Submission {
   id?: string,
@@ -10,36 +8,34 @@ export interface Submission {
   day: number
 }
 
+const _mock = {id: "asdas", address: "asdasd", text: "asdasda", day: 1}
+
 @Injectable({
   providedIn: 'root'
 })
 export class SubmissionService {
 
-  _db: DbService<Submission>;
-  constructor(
-    private firestore: Firestore,
-  ) {
-    this._db = new DbService<Submission>(firestore);
-    this._db.use("submissions");
-  }
+  constructor() {}
 
   all(querray: any[][] = [[]]): Observable<Submission[]> {
-    return this._db.all(querray);
+    return of([
+      _mock
+    ])
   }
 
   read(id: string): Observable<Submission> {
-    return this._db.read(id);
+    return of(_mock)
   }
 
   create(submission: Submission) {
-    return this._db.create(submission);
+    return of({})
   }
 
   delete(submission: Submission) {
-    return this._db.delete(submission);
+    return of({});
   }
 
   update(submission: Submission) {
-    return this._db.update(submission.id, { text: submission.text });
+    return of({})
   }
 }
